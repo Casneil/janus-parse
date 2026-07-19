@@ -1,4 +1,4 @@
-name: Automated Release and Publish
+name: release
 
 on:
   push:
