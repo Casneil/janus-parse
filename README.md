@@ -1,8 +1,5 @@
 # janus-parse
 
-[![npm version](https://shields.io)](https://npmjs.com)
-[![License: MIT](https://shields.io)](https://opensource.org)
-
 A lightweight, high-performance, isomorphic HTML text extractor and sanitizer built entirely in TypeScript. It safely strips out targeted layout elements or malicious scripts and returns clean, whitespace-normalized text.
 
 `janus-parse` provides dedicated entry points optimized for both Node.js environments and client-side browsers, ensuring minimal browser bundle overhead.
@@ -121,26 +118,6 @@ interface Config {
 - **`text`**: The input raw HTML string.
 - **`config`**: Optional rule blocks to override standard cleaning lists.
 - **Returns**: A clean string containing target inner-text nodes parsed from the browser context.
-
----
-
-## Development & Testing
-
-If you want to contribute or modify this package, pull down the code and use the built-in development workflows:
-
-```bash
-# Install dependencies
-pnpm install
-
-# Run the test suite via Vitest
-pnpm test
-
-# Check or fix formatting rules
-pnpm fmt
-
-# Compile the TypeScript project into the 'dist/' folder
-pnpm build
-```
 
 ---
 
