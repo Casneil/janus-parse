@@ -1,12 +1,32 @@
 {
   "name": "janus-parse",
   "license": "MIT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+		"keywords": [
+    "html-parser",
+    "text-extractor",
+    "html-to-text",
+    "html-sanitizer",
+    "isomorphic",
+    "typescript",
+    "dom-parser",
+    "clean-text",
+    "strip-tags",
+    "node-html-parser"
+	],
   "files": [
     "dist"
   ],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Casneil/janus-parse"
+	},
+	"homepage": "https://github.com/Casneil/janus-parse",
+	"bugs": {
+		"url":"https://github.com/Casneil/janus-parse/issues"
+	},
   "type": "module",
   "prepack": "pnpm build",
   "scripts": {
