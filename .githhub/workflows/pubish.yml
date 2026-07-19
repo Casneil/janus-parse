@@ -43,5 +43,5 @@ jobs:
       - name: Run Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Generated automatically by GitHub
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}       # You must add this secret manually
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # You must add this secret manually
         run: pnpm exec semantic-release
