@@ -14,7 +14,7 @@ export async function janusServer(text: string, config: Config = janusConfig) {
   // @ts-expect-error
   removeNodes(nodesToRemove);
 
-	return root.textContent.replace(new RegExp("\\s+", "g"), " ").trim();
+  return root.textContent.replace(new RegExp("\\s+", "g"), " ").trim();
 }
 
 export function janusClient(text: string, config: Config = janusConfig) {
@@ -30,4 +30,3 @@ export function janusClient(text: string, config: Config = janusConfig) {
 
   return cleanText;
 }
-

@@ -11,10 +11,10 @@ A lightweight, high-performance, isomorphic HTML text extractor and sanitizer bu
 
 ## Features
 
-* **Isomorphic Architecture:** Native support for both Node.js servers and Web Browsers.
-* **Smart Tree Shaking:** Heavy server-side dependencies are dynamically imported, keeping your browser footprint tiny.
-* **Strict Validation:** Automatically ensures inputs are safe and structurally sound before parsing.
-* **Built-in TypeScript Types:** Ship code confidently with full type safety and explicit configuration interfaces.
+- **Isomorphic Architecture:** Native support for both Node.js servers and Web Browsers.
+- **Smart Tree Shaking:** Heavy server-side dependencies are dynamically imported, keeping your browser footprint tiny.
+- **Strict Validation:** Automatically ensures inputs are safe and structurally sound before parsing.
+- **Built-in TypeScript Types:** Ship code confidently with full type safety and explicit configuration interfaces.
 
 ---
 
@@ -42,7 +42,7 @@ yarn install janus-parse
 The `janusServer` function is asynchronous. It dynamically imports [node-html-parser](https://www.npmjs.com/package/node-html-parser) to handle complex document object trees smoothly on the backend.
 
 ```typescript
-import { janusServer } from 'janus-parse';
+import { janusServer } from "janus-parse";
 
 const rawHtml = `
   <main>
@@ -62,9 +62,10 @@ console.log(cleanText);
 The `janusClient` function is synchronous. It ignores server node environments and hooks directly into the browser's native, hardware-optimized `DOMParser` engine.
 
 ```typescript
-import { janusClient } from 'janus-parse';
+import { janusClient } from "janus-parse";
 
-const webMarkup = '<div> Dynamic Web App <style>body { display: none; }</style></div>';
+const webMarkup =
+  "<div> Dynamic Web App <style>body { display: none; }</style></div>";
 
 const textOnly = janusClient(webMarkup);
 console.log(textOnly);
@@ -76,14 +77,14 @@ console.log(textOnly);
 You can modify which HTML tags are targeted for destruction by passing an optional configuration object.
 
 ```typescript
-	const structuralConfig = {
-		addBlacklistTags: ['span', 'section'], // Purge extra elements
-		removeBlacklistTags: ['script']        // Keep scripts if you are building an isolated sandbox
-	};
+const structuralConfig = {
+  addBlacklistTags: ["span", "section"], // Purge extra elements
+  removeBlacklistTags: ["script"], // Keep scripts if you are building an isolated sandbox
+};
 ```
 
 ```typescript
-import { janusServer } from 'janus-parse';
+import { janusServer } from "janus-parse";
 
 const processedTextServer = await janusServer(htmlSource, structuralConfig);
 ```
@@ -99,7 +100,9 @@ const processedTextClient = janusClienthtmlSource, structuralConfig);
 ## API Reference
 
 ### `Config`
+
 TypeScript interface passed to fine-tune tag removal behaviors.
+
 ```typescript
 interface Config {
   addBlacklistTags?: string[];
@@ -108,14 +111,16 @@ interface Config {
 ```
 
 ### `janusServer(text: string, config?: Config): Promise<string>`
-* **`text`**: The input raw HTML string.
-* **`config`**: Optional rule blocks to override standard cleaning lists.
-* **Returns**: A promise that resolves to a stripped, whitespace-normalized single-line string.
+
+- **`text`**: The input raw HTML string.
+- **`config`**: Optional rule blocks to override standard cleaning lists.
+- **Returns**: A promise that resolves to a stripped, whitespace-normalized single-line string.
 
 ### `janusClient(text: string, config?: Config): string`
-* **`text`**: The input raw HTML string.
-* **`config`**: Optional rule blocks to override standard cleaning lists.
-* **Returns**: A clean string containing target inner-text nodes parsed from the browser context.
+
+- **`text`**: The input raw HTML string.
+- **`config`**: Optional rule blocks to override standard cleaning lists.
+- **Returns**: A clean string containing target inner-text nodes parsed from the browser context.
 
 ---
 

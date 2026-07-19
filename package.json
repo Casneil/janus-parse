@@ -1,18 +1,20 @@
 {
-	"name": "janus-parse",
-	"license": "MIT",
-	"version": "1.0.1",
-	"main": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"files": ["dist"],
+  "name": "janus-parse",
+  "license": "MIT",
+  "version": "1.0.1",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "type": "module",
-	"prepack": "pnpm build",
+  "prepack": "pnpm build",
   "scripts": {
     "janus": "tsx ./lib/index.ts",
     "test": "vitest",
     "fmt": "prettier --write .",
-		"build": "tsc",
-		"prepublishOnly": "pnpm build"
+    "build": "tsc",
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "node-html-parser": "9.0.0"
