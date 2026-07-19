@@ -1,4 +1,4 @@
-name: Renovate Runner
+name: renovate
 
 on:
   # Runs automatically at 00:00 every Saturday and Sunday
