@@ -15,8 +15,7 @@
 		"prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "node-html-parser": "9.0.0",
-    "pnpm": "11.15.0"
+    "node-html-parser": "9.0.0"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",
