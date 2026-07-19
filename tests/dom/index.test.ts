@@ -2,7 +2,7 @@ import { expect, describe, it } from "vitest";
 import { janusClient } from "../../lib/janus-parse";
 
 describe("janusClient()", () => {
-  it("allows ssr override", () => {
+	it("only returns text nodes without tags", () => {
     expect(
       janusClient(`foo bar <p>the price of emissions allowances (EUA)</p>`),
     ).toBe("foo bar the price of emissions allowances (EUA)");
