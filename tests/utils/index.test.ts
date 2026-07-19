@@ -1,5 +1,5 @@
 import { expect, describe, it } from "vitest";
-import { getTags } from "../../utils";
+import { getTags } from "../../lib/utils";
 
 describe("getTags()", () => {
   it("should remove tag corectly", () => {

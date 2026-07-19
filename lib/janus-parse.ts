@@ -1,4 +1,4 @@
-import { validateText, removeNodes, Config, getTags } from "../utils";
+import { validateText, removeNodes, Config, getTags } from "./utils/index.js";
 
 const janusConfig: Config = {
   addBlacklistTags: [],
@@ -14,7 +14,7 @@ export async function janusServer(text: string, config: Config = janusConfig) {
   // @ts-expect-error
   removeNodes(nodesToRemove);
 
-  return root.textContent.replace(/\s+/g, " ").trim();
+	return root.textContent.replace(new RegExp("\\s+", "g"), " ").trim();
 }
 
 export function janusClient(text: string, config: Config = janusConfig) {
