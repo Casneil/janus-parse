@@ -27,6 +27,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      - name: Run Check
+        run: pnpm type:check
+
       - name: Run Code Formatting Check
         run: pnpm fmt
 

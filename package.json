@@ -47,6 +47,7 @@
     "janus": "tsx ./lib/index.ts",
     "test": "vitest",
     "fmt": "prettier --write .",
+		"type:check": "tsc --noEmit",
     "build": "tsc",
     "prepublishOnly": "pnpm build"
   },
