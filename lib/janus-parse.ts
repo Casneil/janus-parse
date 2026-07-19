@@ -1,4 +1,5 @@
-import { validateText, removeNodes, Config, getTags } from "./utils/index.js";
+import { validateText, removeNodes, getTags } from "./utils/index.js";
+import type { Config } from "./utils/index.js";
 
 const janusConfig: Config = {
   addBlacklistTags: [],
