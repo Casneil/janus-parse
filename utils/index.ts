@@ -1,3 +1,10 @@
+import { defaultBlacklistTags } from "../lib/blacklist";
+
+export type Config = {
+  addBlacklistTags?: string[];
+  removeBlacklistTags?: string[];
+};
+
 export function validateText(text: string) {
   if (
     typeof text !== "string" ||
@@ -10,26 +17,17 @@ export function validateText(text: string) {
   }
 }
 
-export function removeBlackListTags(
-  removeBlacklistTags: string[],
-  defaultBlacklistTags: Set<string>,
-) {
-  for (const tag of removeBlacklistTags) {
-    defaultBlacklistTags.delete(tag);
+export function getTags(config: Config) {
+  let tags = new Set();
+  if (config.addBlacklistTags) {
+    tags = addBlackListTags(config.addBlacklistTags);
   }
 
-  return defaultBlacklistTags;
-}
-
-export function addBlackListTags(
-  addBlacklistTags: string[],
-  defaultBlacklistTags: Set<string>,
-) {
-  for (const tag of addBlacklistTags) {
-    defaultBlacklistTags.add(tag);
+  if (config.removeBlacklistTags) {
+    tags = removeBlackListTags(config.removeBlacklistTags);
   }
 
-  return defaultBlacklistTags;
+  return [...tags].join(",");
 }
 
 export function removeNodes(
@@ -40,4 +38,22 @@ export function removeNodes(
   }
 
   return nodesToRemove;
+}
+
+function removeBlackListTags(removeBlacklistTags: string[]) {
+  const blacklistTags = new Set(defaultBlacklistTags);
+  for (const tag of removeBlacklistTags) {
+    blacklistTags.delete(tag);
+  }
+
+  return blacklistTags;
+}
+
+function addBlackListTags(addBlacklistTags: string[]) {
+  const blacklistTags = new Set(defaultBlacklistTags);
+  for (const tag of addBlacklistTags) {
+    blacklistTags.add(tag);
+  }
+
+  return blacklistTags;
 }

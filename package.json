@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "parse": "tsx ./lib/index.ts",
+    "janus": "tsx ./lib/index.ts",
     "test": "vitest",
     "fmt": "prettier --write ."
   },

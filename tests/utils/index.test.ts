@@ -1,30 +1,24 @@
 import { expect, describe, it } from "vitest";
-import { removeBlackListTags, addBlackListTags } from "../../utils";
+import { getTags } from "../../utils";
 
-describe("removeBlackListTags()", () => {
-  it("should remove value corectly", () => {
-    expect(removeBlackListTags(["a"], new Set(["a", "b", "c"]))).toStrictEqual(
-      new Set(["b", "c"]),
+describe("getTags()", () => {
+  it("should remove tag corectly", () => {
+    expect(getTags({ removeBlacklistTags: ["style"] })).toBe("script");
+  });
+
+  it("should remove multiple tags corectly", () => {
+    expect(getTags({ removeBlacklistTags: ["script", "style"] })).toBe("");
+  });
+
+  it("should add tag corectly", () => {
+    expect(getTags({ addBlacklistTags: ["iframe"] })).toBe(
+      "script,style,iframe",
     );
   });
 
-  it("should remove multiple values corectly", () => {
-    expect(
-      removeBlackListTags(["a", "b"], new Set(["a", "b", "c"])),
-    ).toStrictEqual(new Set(["c"]));
-  });
-});
-
-describe("addBlackListTags()", () => {
-  it("should remove value corectly", () => {
-    expect(addBlackListTags(["c"], new Set(["a", "b"]))).toStrictEqual(
-      new Set(["a", "b", "c"]),
-    );
-  });
-
-  it("hould remove multiple values corectly", () => {
-    expect(addBlackListTags(["a", "b"], new Set(["c"]))).toStrictEqual(
-      new Set(["a", "b", "c"]),
+  it("should add multiple tagss corectly", () => {
+    expect(getTags({ addBlacklistTags: ["iframe", "button"] })).toBe(
+      "script,style,iframe,button",
     );
   });
 });

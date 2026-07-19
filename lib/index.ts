@@ -1,48 +1,14 @@
-import { blacklistTags } from "./blacklist";
 import { TEXT } from "../fixtures";
-import {
-  addBlackListTags,
-  removeBlackListTags,
-  validateText,
-  removeNodes,
-} from "../utils";
+import { validateText, removeNodes, Config, getTags } from "../utils";
 
-type Config = {
-  ssr?: boolean;
-  addBlacklistTags?: string[];
-  removeBlacklistTags?: string[];
-};
-const HTMLSanitizerConfig: Config = {
-  ssr: true,
+const janusConfig: Config = {
   addBlacklistTags: [],
   removeBlacklistTags: [],
 };
 
-const defaultBlacklistTags = blacklistTags;
-
-export async function HTMLSanitizer(
-  text: string,
-  config: Config = HTMLSanitizerConfig,
-) {
-  if (config.addBlacklistTags) {
-    addBlackListTags(config.addBlacklistTags, defaultBlacklistTags);
-  }
-
-  if (config.removeBlacklistTags) {
-    removeBlackListTags(config.removeBlacklistTags, defaultBlacklistTags);
-  }
-
-  const tags = [...defaultBlacklistTags].join(",");
-
-  if (config.ssr) {
-    return await ServerParser(text, tags);
-  }
-
-  return (text = String(clientParser(text, tags)));
-}
-
-async function ServerParser(text: string, tags: string) {
+export async function janusServer(text: string, config: Config = janusConfig) {
   validateText(text);
+  const tags = getTags(config);
   const parser = await import("node-html-parser");
   const root = parser.parse(text);
   const nodesToRemove = root.querySelectorAll(tags);
@@ -52,18 +18,19 @@ async function ServerParser(text: string, tags: string) {
   return root.textContent.replace(/\s+/g, " ").trim();
 }
 
-function clientParser(text: string, tags: string) {
+export function janusClient(text: string, config: Config = janusConfig) {
   validateText(text);
+  const tags = getTags(config);
   const parser = new DOMParser();
   const virtualDoc = parser.parseFromString(text, "text/html");
-  const cleanText = virtualDoc.body.textContent;
 
   const nodesToRemove = virtualDoc.querySelectorAll(tags);
-
   removeNodes(nodesToRemove);
+
+  const cleanText = virtualDoc.body.textContent;
 
   return cleanText;
 }
 
-// const parser = await HTMLSanitizer(TEXT);
+// const parser = await janusServer(TEXT);
 // console.log(parser);
