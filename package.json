@@ -1,10 +1,12 @@
 {
 	"name": "janus-parse",
+	"license": "MIT",
 	"version": "1.0.0",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"files": ["dist"],
   "type": "module",
+	"prepack": "pnpm build",
   "scripts": {
     "janus": "tsx ./lib/index.ts",
     "test": "vitest",
