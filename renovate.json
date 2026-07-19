@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
-  "gitAuthor": "GitHub Actions Bot <actions@github.com>"
+  "gitAuthor": "GitHub Actions Bot <actions@github.com>",
+  "stabilityDays": 3
 }
