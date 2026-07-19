@@ -1,3 +1,5 @@
+import type { HTMLElement as NodeHTMLElement } from "node-html-parser"
+
 export type Config = {
   addBlacklistTags?: string[];
   removeBlacklistTags?: string[];
@@ -31,7 +33,7 @@ export function getTags(config: Config) {
 }
 
 export function removeNodes(
-  nodesToRemove: HTMLElement[] | NodeListOf<Element>,
+	nodesToRemove: NodeHTMLElement[] | NodeListOf<Element>,
 ) {
   for (const node of nodesToRemove) {
     node.remove();

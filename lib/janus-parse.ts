@@ -12,7 +12,6 @@ export async function janusServer(text: string, config: Config = janusConfig) {
   const parser = await import("node-html-parser");
   const root = parser.parse(text);
   const nodesToRemove = root.querySelectorAll(tags);
-  // @ts-expect-error
   removeNodes(nodesToRemove);
 
   return root.textContent.replace(new RegExp("\\s+", "g"), " ").trim();
