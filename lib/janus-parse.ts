@@ -1,4 +1,3 @@
-import { TEXT } from "../fixtures";
 import { validateText, removeNodes, Config, getTags } from "../utils";
 
 const janusConfig: Config = {
@@ -32,5 +31,3 @@ export function janusClient(text: string, config: Config = janusConfig) {
   return cleanText;
 }
 
-// const parser = await janusServer(TEXT);
-// console.log(parser);

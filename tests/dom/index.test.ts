@@ -1,5 +1,5 @@
 import { expect, describe, it } from "vitest";
-import { janusClient } from "../../lib";
+import { janusClient } from "../../lib/janus-parse";
 
 describe("janusClient()", () => {
   it("allows ssr override", () => {

@@ -1,9 +1,9 @@
-import { defaultBlacklistTags } from "../lib/blacklist";
-
 export type Config = {
   addBlacklistTags?: string[];
   removeBlacklistTags?: string[];
 };
+
+const defaultBlacklistTags = new Set(["script", "style"]);
 
 export function validateText(text: string) {
   if (
