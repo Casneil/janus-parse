@@ -1,4 +1,5 @@
 import { expect, describe, it } from "vitest";
+
 import { getTags } from "../../lib/utils";
 
 describe("getTags()", () => {

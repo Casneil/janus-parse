@@ -1,1 +1,1 @@
-export * from "./janus-parse.js";
+export * from "./janus-parse";

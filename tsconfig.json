@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "types": ["node"],
+    "lib": ["DOM", "DOM.Iterable", "ESNEXT"],
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",

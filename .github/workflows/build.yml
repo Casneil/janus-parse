@@ -28,6 +28,9 @@ jobs:
       - name: Run Check
         run: pnpm type:check
 
+      - name: Run Lint
+        run: pnpm code:lint
+
       - name: Run Formatter
         run: pnpm fmt
 

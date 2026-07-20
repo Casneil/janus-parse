@@ -35,6 +35,9 @@ jobs:
       - name: Run Check
         run: pnpm type:check
 
+      - name: Run Check
+        run: pnpm code:lint
+
       - name: Run Formatter
         run: pnpm fmt
 

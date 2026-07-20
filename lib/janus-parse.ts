@@ -1,5 +1,5 @@
-import { validateText, removeNodes, getTags } from "./utils/index.js";
-import type { Config } from "./utils/index.js";
+import { validateText, removeNodes, getTags } from "./utils";
+import type { Config } from "./utils";
 
 const janusConfig: Config = {
   addBlacklistTags: [],
@@ -14,19 +14,19 @@ export async function janusServer(text: string, config: Config = janusConfig) {
   const nodesToRemove = root.querySelectorAll(tags);
   removeNodes(nodesToRemove);
 
-  return root.textContent.replace(new RegExp("\\s+", "g"), " ").trim();
+  return root.textContent.replace(new RegExp(String.raw`\s+`, "g"), " ").trim();
 }
 
 export function janusClient(text: string, config: Config = janusConfig) {
   validateText(text);
   const tags = getTags(config);
   const parser = new DOMParser();
-  const virtualDoc = parser.parseFromString(text, "text/html");
+  const virtualDocument = parser.parseFromString(text, "text/html");
 
-  const nodesToRemove = virtualDoc.querySelectorAll(tags);
+  const nodesToRemove = virtualDocument.querySelectorAll(tags);
   removeNodes(nodesToRemove);
 
-  const cleanText = virtualDoc.body.textContent;
+  const cleanText = virtualDocument.body.textContent;
 
   return cleanText;
 }
