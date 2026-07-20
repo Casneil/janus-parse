@@ -35,6 +35,9 @@ jobs:
       - name: Run Check
         run: pnpm type:check
 
+      - name: Run Formatter
+        run: pnpm fmt
+
       - name: Run Build
         run: pnpm build
 
