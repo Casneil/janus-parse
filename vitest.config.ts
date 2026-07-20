@@ -5,15 +5,8 @@ export default defineConfig({
     projects: [
       {
         test: {
-          name: "utils-tests",
-          include: ["tests/utils/**/*.test.{ts,js}"],
-          environment: "node",
-        },
-      },
-      {
-        test: {
           name: "node-tests",
-          include: ["tests/node/**/*.test.{ts,js}"],
+					include: ["tests/node/**/*.test.{ts,js}", "tests/utils/**/*.test.{ts,js}"],
           environment: "node",
         },
       },
