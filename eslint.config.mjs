@@ -34,14 +34,12 @@ export default defineConfig([
       },
     },
     settings: {
-      // Registers the TypeScript and Node resolvers natively inside import-x
       "import-x/resolver-next": [
         createTypeScriptImportResolver({
           alwaysTryTypes: true,
         }),
         createNodeResolver(),
       ],
-      // Fallback fallback namespace if rules use the "import/" prefix instead of "import-x/"
       "import/resolver": {
         typescript: {
           alwaysTryTypes: true,
