@@ -6,7 +6,10 @@ export default defineConfig({
       {
         test: {
           name: "node-tests",
-					include: ["tests/node/**/*.test.{ts,js}", "tests/utils/**/*.test.{ts,js}"],
+          include: [
+            "tests/node/**/*.test.{ts,js}",
+            "tests/utils/**/*.test.{ts,js}",
+          ],
           environment: "node",
         },
       },
