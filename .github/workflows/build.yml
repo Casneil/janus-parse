@@ -28,7 +28,7 @@ jobs:
       - name: Run Check
         run: pnpm type:check
 
-      - name: Run Code Formatting Check
+      - name: Run Formatter
         run: pnpm fmt
 
       - name: Run Build
