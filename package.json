@@ -76,5 +76,5 @@
     "vitest": "^4.1.10"
   },
   "prettier": {},
-	"--Typescript V 7--": "cannot use TS v7 until typescript-eslint adds support"
+  "--Typescript V 7--": "cannot use TS v7 until typescript-eslint adds support"
 }
