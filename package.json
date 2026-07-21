@@ -47,7 +47,7 @@
   "scripts": {
     "janus": "tsx ./lib/index.ts",
     "test": "vitest",
-    "code:lint": "pnpm eslint --cache .",
+    "code:lint": "pnpm eslint --flag unstable_native_nodejs_ts_config --cache .",
     "fmt": "prettier --write .",
     "type:check": "tsc --noEmit",
     "build": "tsc",

@@ -97,7 +97,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["eslint.config.mjs", "vitest.config.ts"],
+    files: ["eslint.config.ts", "vitest.config.ts"],
     rules: {
       "import/no-default-export": "off",
     },
