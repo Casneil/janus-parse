@@ -4,13 +4,13 @@ import { janusServer } from "../../lib/janus-parse";
 
 describe("janusServer()", () => {
   it("removes whitespace characters trim texts correctly", async () => {
-    expect(await janusServer(`foo	bar  `)).toBe("foo bar");
+    expect(await janusServer("foo	bar  ")).toBe("foo bar");
   });
 
   it("only returns text nodes without tags", async () => {
     expect(
       await janusServer(
-        `foo bar <p>the price of emissions allowances (EUA)</p>`,
+        "foo bar <p>the price of emissions allowances (EUA)</p>",
       ),
     ).toBe("foo bar the price of emissions allowances (EUA)");
 

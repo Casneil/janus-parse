@@ -4,12 +4,12 @@ import { janusClient } from "../../lib/janus-parse";
 
 describe("janusClient()", () => {
   it("removes whitespace characters trim texts correctly", () => {
-    expect(janusClient(`foo	bar  `)).toBe("foo bar");
+    expect(janusClient("foo	bar  ")).toBe("foo bar");
   });
 
   it("only returns text nodes without tags", () => {
     expect(
-      janusClient(`foo bar <p>the price of emissions allowances (EUA)</p>`),
+      janusClient("foo bar <p>the price of emissions allowances (EUA)</p>"),
     ).toBe("foo bar the price of emissions allowances (EUA)");
 
     expect(
