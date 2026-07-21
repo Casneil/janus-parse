@@ -7,7 +7,7 @@ describe("janusServer()", () => {
     expect(await janusServer("foo	bar  ")).toBe("foo bar");
   });
 
-  it("only returns text nodes without tags", async () => {
+  it("returns text nodes without tags", async () => {
     expect(
       await janusServer(
         "foo bar <p>the price of emissions allowances (EUA)</p>",
@@ -21,7 +21,13 @@ describe("janusServer()", () => {
     ).toBe("The price of emissions allowances (EUA) link");
   });
 
-  it("remove tags and content", async () => {
+  it("returns text nodes as is.", async () => {
+    expect(await janusServer("This is not a html string.")).toBe(
+      "This is not a html string.",
+    );
+  });
+
+  it("removes tags and content", async () => {
     expect(
       await janusServer(
         `<div><script>(function() {console.log("foo bar")})()</script><p>The price of emissions allowances (EUA)</p><a href="/"> link</a></div>`,

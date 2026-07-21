@@ -7,7 +7,7 @@ describe("janusClient()", () => {
     expect(janusClient("foo	bar  ")).toBe("foo bar");
   });
 
-  it("only returns text nodes without tags", () => {
+  it("returns text nodes without tags", () => {
     expect(
       janusClient("foo bar <p>the price of emissions allowances (EUA)</p>"),
     ).toBe("foo bar the price of emissions allowances (EUA)");
@@ -19,15 +19,13 @@ describe("janusClient()", () => {
     ).toBe("The price of emissions allowances (EUA) link");
   });
 
-  it("only returns text nodes without tags", () => {
-    expect(
-      janusClient(
-        `<div><p>The price of emissions allowances (EUA)</p><a href="/"> link</a></div>`,
-      ),
-    ).toBe("The price of emissions allowances (EUA) link");
+  it("returns text nodes as is.", () => {
+    expect(janusClient("This is not a html string.")).toBe(
+      "This is not a html string.",
+    );
   });
 
-  it("remove tags and content", () => {
+  it("removes tags and content", () => {
     expect(
       janusClient(
         `<div><script>(function() {console.log("foo bar")})()</script><p>The price of emissions allowances (EUA)</p><a href="/"> link</a></div>`,
