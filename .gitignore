@@ -1,5 +1,5 @@
 
-fixtures
+mock-fixtures
 
 .pnpm-debug.log*
 node_modules/
