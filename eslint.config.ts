@@ -9,7 +9,7 @@ export default defineConfig([
   {
     ignores: [
       "**/dist/**",
-      "fixtures/**",
+      "mock-fixtures/**",
       "public/**",
       "node_modules/**",
       "pnpm-lock.yaml",
@@ -28,11 +28,6 @@ export default defineConfig([
     },
   },
   {
-    languageOptions: {
-      parserOptions: {
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
     settings: {
       "import-x/resolver-next": [
         createTypeScriptImportResolver({

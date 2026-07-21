@@ -45,7 +45,7 @@
   "type": "module",
   "prepack": "pnpm build",
   "scripts": {
-    "janus": "tsx ./lib/index.ts",
+    "janus": "tsx ./lib",
     "test": "vitest",
     "code:lint": "pnpm eslint --flag unstable_native_nodejs_ts_config --cache .",
     "fmt": "prettier --write .",

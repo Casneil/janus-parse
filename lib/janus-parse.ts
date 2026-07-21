@@ -15,7 +15,7 @@ export async function janusServer(text: string, config: Config = janusConfig) {
   removeNodes(nodesToRemove);
 
   return root.textContent.replace(new RegExp(String.raw`\s+`, "g"), " ").trim();
-}
+};
 
 export function janusClient(text: string, config: Config = janusConfig) {
   validateText(text);
@@ -29,4 +29,5 @@ export function janusClient(text: string, config: Config = janusConfig) {
   const cleanText = virtualDocument.body.textContent;
 
   return cleanText;
-}
+};
+
