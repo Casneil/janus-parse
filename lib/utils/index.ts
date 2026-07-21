@@ -20,7 +20,7 @@ export function validateText(text: string) {
 }
 
 export function normalizeWhitespace(text = "") {
-	return text.replace(new RegExp(String.raw`\s+`, "g"), " ").trim();
+  return text.replace(new RegExp(String.raw`\s+`, "g"), " ").trim();
 }
 
 export function getTags(config: Config) {

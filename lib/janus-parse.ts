@@ -1,4 +1,9 @@
-import { validateText, removeNodes, getTags, normalizeWhitespace } from "./utils";
+import {
+  validateText,
+  removeNodes,
+  getTags,
+  normalizeWhitespace,
+} from "./utils";
 import type { Config } from "./utils";
 
 const janusConfig: Config = {
@@ -14,7 +19,7 @@ export async function janusServer(text: string, config: Config = janusConfig) {
   const nodesToRemove = root.querySelectorAll(tags);
   removeNodes(nodesToRemove);
 
-	return normalizeWhitespace(root.textContent);
+  return normalizeWhitespace(root.textContent);
 }
 
 export function janusClient(text: string, config: Config = janusConfig) {
@@ -26,5 +31,5 @@ export function janusClient(text: string, config: Config = janusConfig) {
   const nodesToRemove = virtualDocument.querySelectorAll(tags);
   removeNodes(nodesToRemove);
 
-	return normalizeWhitespace(virtualDocument.body.textContent);
+  return normalizeWhitespace(virtualDocument.body.textContent);
 }

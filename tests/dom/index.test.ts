@@ -3,13 +3,9 @@ import { expect, describe, it } from "vitest";
 import { janusClient } from "../../lib/janus-parse";
 
 describe("janusClient()", () => {
-	it("removes whitespace characters trim texts correctly", () => {
-		expect(
-			janusClient(
-				`foo	bar  `,
-			),
-		).toBe("foo bar");
-	});
+  it("removes whitespace characters trim texts correctly", () => {
+    expect(janusClient(`foo	bar  `)).toBe("foo bar");
+  });
 
   it("only returns text nodes without tags", () => {
     expect(
