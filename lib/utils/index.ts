@@ -1,8 +1,8 @@
 import type { HTMLElement as NodeHTMLElement } from "node-html-parser";
 
 export type Config = {
-  addBlacklistTags?: string[];
-  removeBlacklistTags?: string[];
+  tagsToRemove?: string[];
+  tagsToPreserve?: string[];
 };
 
 const defaultBlacklistTags = new Set(["script", "style"]);
@@ -24,42 +24,97 @@ export function normalizeWhitespace(text = "") {
 }
 
 export function getTags(config: Config) {
-  let tags = new Set();
-  if (config.addBlacklistTags) {
-    tags = addBlackListTags(config.addBlacklistTags);
+  const removedTags = new Set(defaultBlacklistTags);
+  const preservedTags = new Set<string>();
+
+  if (config.tagsToRemove) {
+    addBlackListTags(removedTags, config.tagsToRemove);
   }
 
-  if (config.removeBlacklistTags) {
-    tags = removeBlackListTags(config.removeBlacklistTags);
+  if (config.tagsToPreserve) {
+    removeBlackListTags({
+      removedTags,
+      preservedTags,
+      tagsToPreserve: config.tagsToPreserve,
+    });
   }
 
-  return [...tags].join(",");
+  return { removedTags, preservedTags };
 }
 
-export function removeNodes(
-  nodesToRemove: NodeHTMLElement[] | NodeListOf<Element>,
-) {
-  for (const node of nodesToRemove) {
-    node.remove();
+export function serialize({
+  node,
+  removedTags,
+  preservedTags,
+}: {
+  node: Node;
+  removedTags: Set<string>;
+  preservedTags: Set<string>;
+}): string {
+  if (!node) return "";
+
+  if (node.nodeType === 3) {
+    // DOM Text node => 3
+    const rawText = validateNode(node, "rawText");
+    const text = validateNode(node, "text");
+
+    return rawText ?? text ?? node.textContent ?? "";
   }
 
-  return nodesToRemove;
+  const tagName = validateNode(node, "tagName") ?? "";
+  const tag = tagName.toLowerCase();
+
+  //  Completely ignore blacklisted tags
+  if (removedTags.has(tag)) return "";
+
+  //  Keep preserved tags intact along with their outer HTML structure
+  if (preservedTags.has(tag)) {
+    const outerHTML = validateNode(node, "outerHTML");
+
+    return (
+      outerHTML ??
+      (typeof node.toString === "function" ? node.toString() : undefined) ??
+      ""
+    );
+  }
+
+  const children = [...node.childNodes] as Node[];
+  return children
+    .map((child) => serialize({ node: child, removedTags, preservedTags }))
+    .join("");
 }
 
-function removeBlackListTags(removeBlacklistTags: string[]) {
-  const blacklistTags = new Set(defaultBlacklistTags);
-  for (const tag of removeBlacklistTags) {
-    blacklistTags.delete(tag);
+function removeBlackListTags({
+  removedTags,
+  preservedTags,
+  tagsToPreserve,
+}: {
+  removedTags: Set<string>;
+  preservedTags: Set<string>;
+  tagsToPreserve: string[];
+}) {
+  for (const tag of tagsToPreserve) {
+    const normalized = tag.toLowerCase();
+    removedTags.delete(normalized);
+    preservedTags.add(normalized);
   }
-
-  return blacklistTags;
 }
 
-function addBlackListTags(addBlacklistTags: string[]) {
-  const blacklistTags = new Set(defaultBlacklistTags);
-  for (const tag of addBlacklistTags) {
-    blacklistTags.add(tag);
+function addBlackListTags(preserveTags: Set<string>, tagsToRemove: string[]) {
+  for (const tag of tagsToRemove) {
+    preserveTags.add(tag.toLowerCase());
   }
+}
 
-  return blacklistTags;
+type Node = NodeHTMLElement | ChildNode;
+type LookupType = "outerHTML" | "text" | "rawText" | "tagName";
+
+function validateNode(
+  node: Node,
+  lookup: LookupType = "outerHTML",
+): string | undefined {
+  const targetNode = node as Record<LookupType, string>;
+  const value = targetNode[lookup];
+
+  return value ?? undefined;
 }

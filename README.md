@@ -49,9 +49,7 @@ const rawHtml = `
   </main>
 `;
 
-const cleanText = await janusServer(rawHtml);
-console.log(cleanText);
-// Output: "Hello Universe This is a highly spaced sentence."
+const cleanText = await janusServer(rawHtml); // Output: "Hello Universe This is a highly spaced sentence."
 ```
 
 ### 2. Client-Side Execution (Browser)
@@ -64,9 +62,7 @@ import { janusClient } from "janus-parse";
 const webMarkup =
   "<div> Dynamic Web App <style>body { display: none; }</style></div>";
 
-const textOnly = janusClient(webMarkup);
-console.log(textOnly);
-// Output: " Dynamic Web App"
+const textOnly = janusClient(webMarkup); // Output: " Dynamic Web App"
 ```
 
 ### 3. Custom Configurations
@@ -75,8 +71,8 @@ You can modify which HTML tags are targeted for destruction by passing an option
 
 ```typescript
 const structuralConfig = {
-  addBlacklistTags: ["span", "section"], // Purge extra elements
-  removeBlacklistTags: ["script"], // Keep scripts if you are building an isolated sandbox
+  tagsToRemove: ["span", "section"] // Adds additonal blacklist candidates,
+  tagsToPreserve: ["script"] // Preserves script tag in output,
 };
 ```
 
@@ -87,9 +83,9 @@ const processedTextServer = await janusServer(htmlSource, structuralConfig);
 ```
 
 ```typescript
-import { janusClient } from 'janus-parse';
+import { janusClient } from "janus-parse";
 
-const processedTextClient = janusClienthtmlSource, structuralConfig);
+const processedTextClient = janusClient(htmlSource, structuralConfig);
 ```
 
 ---
@@ -101,19 +97,19 @@ const processedTextClient = janusClienthtmlSource, structuralConfig);
 TypeScript interface passed to fine-tune tag removal behaviors.
 
 ```typescript
-interface Config {
-  addBlacklistTags?: string[];
-  removeBlacklistTags?: string[];
+type Config {
+  tagsToRemove?: string[];
+  tagsToPreserve?: string[];
 }
 ```
 
-### `janusServer(text: string, config?: Config): Promise<string>`
+#### `janusServer(text: string, config?: Config): Promise<string>`
 
 - **`text`**: The input raw HTML string.
 - **`config`**: Optional rule blocks to override standard cleaning lists.
 - **Returns**: A promise that resolves to a stripped, whitespace-normalized single-line string.
 
-### `janusClient(text: string, config?: Config): string`
+#### `janusClient(text: string, config?: Config): string`
 
 - **`text`**: The input raw HTML string.
 - **`config`**: Optional rule blocks to override standard cleaning lists.

@@ -1,33 +1,29 @@
-import {
-  validateText,
-  removeNodes,
-  getTags,
-  normalizeWhitespace,
-} from "./utils";
+import { validateText, getTags, normalizeWhitespace, serialize } from "./utils";
 import type { Config } from "./utils";
 
 const janusConfig: Config = {
-  addBlacklistTags: [],
-  removeBlacklistTags: [],
+  tagsToRemove: [],
+  tagsToPreserve: [],
 };
 
 export async function janusServer(text: string, config: Config = janusConfig) {
   validateText(text);
   const parser = await import("node-html-parser");
   const root = parser.parse(text);
-  const nodesToRemove = root.querySelectorAll(getTags(config));
-  removeNodes(nodesToRemove);
+  const { removedTags, preservedTags } = getTags(config);
 
-  return normalizeWhitespace(root.textContent);
+  return normalizeWhitespace(
+    serialize({ node: root, removedTags, preservedTags }),
+  );
 }
 
 export function janusClient(text: string, config: Config = janusConfig) {
   validateText(text);
   const parser = new DOMParser();
-  const virtualDocument = parser.parseFromString(text, "text/html");
+  const { removedTags, preservedTags } = getTags(config);
+  const root = parser.parseFromString(text, "text/html").body;
 
-  const nodesToRemove = virtualDocument.querySelectorAll(getTags(config));
-  removeNodes(nodesToRemove);
-
-  return normalizeWhitespace(virtualDocument.body.textContent);
+  return normalizeWhitespace(
+    serialize({ node: root, removedTags, preservedTags }),
+  );
 }
