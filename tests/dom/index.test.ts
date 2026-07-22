@@ -37,10 +37,21 @@ describe("janusClient()", () => {
     expect(
       janusClient(
         `<div><script>(function() {console.log('foo bar')})()</script><p>The price of emissions allowances (EUA)</p><a href="/"> link</a></div>`,
-        { removeBlacklistTags: ["script"] },
+        { tagsToPreserve: ["script"] },
       ),
     ).toBe(
-      "(function() {console.log('foo bar')})()The price of emissions allowances (EUA) link",
+      "<script>(function() {console.log('foo bar')})()</script>The price of emissions allowances (EUA) link",
+    );
+  });
+
+  it("allows multiple tags and content if removed from blacklist", () => {
+    expect(
+      janusClient(
+        `<div><script>(function() {console.log('foo bar')})()</script><p>The price of emissions allowances (EUA)</p><a href="/"> link</a></div>`,
+        { tagsToPreserve: ["script", "div"] },
+      ),
+    ).toBe(
+      `<div><script>(function() {console.log('foo bar')})()</script><p>The price of emissions allowances (EUA)</p><a href="/"> link</a></div>`,
     );
   });
 });
