@@ -5,7 +5,7 @@ export type Config = {
   tagsToPreserve?: string[];
 };
 
-export const defaultBlacklistTags = new Set(["script", "style"]);
+const defaultBlacklistTags = new Set(["script", "style"]);
 
 export function validateText(text: string) {
   if (
