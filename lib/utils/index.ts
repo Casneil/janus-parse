@@ -9,12 +9,11 @@ const defaultBlacklistTags = new Set(["script", "style"]);
 
 export function validateText(text: string) {
   if (
-    typeof text !== "string" ||
-    (typeof text === "string" && text === "undefined")
+    typeof text !== "string"
   ) {
     throw new Error(
-      "The text is not a valid string. Please provide a valid string to parse.",
-      { cause: text },
+			`\n======================================================\n=> ${text} recieved. String expected.\n======================================================`,
+			{ cause: `${text} is not of type string.`,  },
     );
   }
 }
@@ -55,13 +54,13 @@ export function serialize({
 
   if (node.nodeType === 3) {
     // DOM Text node => 3
-    const rawText = validateNode(node, "rawText");
-    const text = validateNode(node, "text");
+    const rawText = getNodeProperty(node, "rawText");
+    const text = getNodeProperty(node, "text");
 
     return rawText ?? text ?? node.textContent ?? "";
   }
 
-  const tagName = validateNode(node, "tagName") ?? "";
+  const tagName = getNodeProperty(node, "tagName") ?? "";
   const tag = tagName.toLowerCase();
 
   //  Completely ignore blacklisted tags
@@ -69,7 +68,7 @@ export function serialize({
 
   //  Keep preserved tags intact along with their outer HTML structure
   if (preservedTags.has(tag)) {
-    const outerHTML = validateNode(node, "outerHTML");
+    const outerHTML = getNodeProperty(node, "outerHTML");
 
     return (
       outerHTML ??
@@ -109,7 +108,7 @@ function addBlackListTags(preserveTags: Set<string>, tagsToRemove: string[]) {
 type Node = NodeHTMLElement | ChildNode;
 type LookupType = "outerHTML" | "text" | "rawText" | "tagName";
 
-function validateNode(
+function getNodeProperty(
   node: Node,
   lookup: LookupType = "outerHTML",
 ): string | undefined {
