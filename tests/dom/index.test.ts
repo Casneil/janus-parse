@@ -3,6 +3,15 @@ import { expect, describe, it } from "vitest";
 import { janusClient } from "../../lib/janus-parse";
 
 describe("janusClient()", () => {
+  it("does inform user of unexpected arguments and does no work", () => {
+    //@ts-expect-error testing purposes
+    expect(() => janusClient(7)).toThrow(
+      `======================================================
+=> 7 recieved. String expected.
+======================================================`,
+    );
+  });
+
   it("removes whitespace characters trim texts correctly", () => {
     expect(janusClient("foo	bar  ")).toBe("foo bar");
   });
