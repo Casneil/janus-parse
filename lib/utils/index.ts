@@ -8,12 +8,10 @@ export type Config = {
 const defaultBlacklistTags = new Set(["script", "style"]);
 
 export function validateText(text: string) {
-  if (
-    typeof text !== "string"
-  ) {
+  if (typeof text !== "string") {
     throw new Error(
-			`\n======================================================\n=> ${text} recieved. String expected.\n======================================================`,
-			{ cause: `${text} is not of type string.`,  },
+      `\n======================================================\n=> ${text} recieved. String expected.\n======================================================`,
+      { cause: `${text} is not of type string.` },
     );
   }
 }
