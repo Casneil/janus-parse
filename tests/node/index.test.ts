@@ -45,6 +45,7 @@ describe("janusServer()", () => {
       "<script>(function() {console.log('foo bar')})()</script>The price of emissions allowances (EUA) link",
     );
   });
+
   it("allows multiple tags and content if removed from blacklist", async () => {
     expect(
       await janusServer(
