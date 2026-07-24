@@ -1,13 +1,12 @@
 import { validateText, getTags, normalizeWhitespace, serialize } from "./utils";
 import type { Config } from "./utils";
 
-export function janusClient(
-  text: string,
-  config: Config = {
-    tagsToRemove: [],
-    tagsToPreserve: [],
-  },
-) {
+const defaultConfig = {
+  tagsToRemove: [],
+  tagsToPreserve: [],
+};
+
+export function janusClient(text: string, config: Config = defaultConfig) {
   validateText(text);
   const parser = new DOMParser();
   const { removedTags, preservedTags } = getTags(config);
