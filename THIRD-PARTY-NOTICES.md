@@ -1,14 +1,13 @@
 # THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
 
-<hr>
 
 This project incorporates components from the projects listed below.
 
 ## node-html-parser
 
-### **[Github](https://github.com/taoqf/node-html-parser)**<br>
+### **[Github](https://github.com/taoqf/node-html-parser)**
 
-### **[NPM](https://www.npmjs.com/package/node-html-parser)**<hr>
+### **[NPM](https://www.npmjs.com/package/node-html-parser)**
 
 Copyright (c) 2019 Tao Qiufeng
 
