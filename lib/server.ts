@@ -1,6 +1,6 @@
 import { parse } from "node-html-parser";
-import { validateText, getTags, normalizeWhitespace, serialize } from "./utils";
 
+import { validateText, getTags, normalizeWhitespace, serialize } from "./utils";
 import type { Config } from "./utils";
 
 export async function janusServer(
