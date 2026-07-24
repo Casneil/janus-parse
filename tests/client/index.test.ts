@@ -1,6 +1,6 @@
 import { expect, describe, it } from "vitest";
 
-import { janusClient } from "../../lib/janus-parse";
+import { janusClient } from "../../lib/client";
 
 describe("janusClient()", () => {
   it("does inform user of unexpected arguments and does no work", () => {
