@@ -108,6 +108,7 @@ type Config {
 - **`text`**: The input raw HTML string.
 - **`config`**: Optional rule blocks to override standard cleaning lists.
 - **Returns**: A promise that resolves to a stripped, whitespace-normalized single-line string.
+---
 
 #### `janusClient(text: string, config?: Config): string`
 
