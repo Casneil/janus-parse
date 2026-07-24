@@ -39,7 +39,7 @@ yarn install janus-parse
 The `janusServer` function is asynchronous. It dynamically imports [node-html-parser](https://www.npmjs.com/package/node-html-parser) to handle complex document object trees smoothly on the backend.
 
 ```typescript
-import { janusServer } from "janus-parse";
+import { janusServer } from "janus-parse/server";
 
 const rawHtml = `
   <main>
@@ -57,7 +57,7 @@ const cleanText = await janusServer(rawHtml); // Output: "Hello Universe This is
 The `janusClient` function is synchronous. It ignores server node environments and hooks directly into the browser's native, hardware-optimized `DOMParser` engine.
 
 ```typescript
-import { janusClient } from "janus-parse";
+import { janusClient } from "janus-parse/client";
 
 const webMarkup =
   "<div> Dynamic Web App <style>body { display: none; }</style></div>";
