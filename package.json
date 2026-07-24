@@ -18,7 +18,8 @@
     "node-html-parser"
   ],
   "files": [
-    "dist"
+    "dist",
+    "THIRD-PARTY-NOTICES.md"
   ],
   "release": {
     "branches": [
