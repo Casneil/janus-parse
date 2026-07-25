@@ -1,7 +1,7 @@
 import eslintJs from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
-import { importX, createNodeResolver } from "eslint-plugin-import-x";
+import { importX } from "eslint-plugin-import-x";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import tsEslint from "typescript-eslint";
 
@@ -33,13 +33,7 @@ export default defineConfig([
         createTypeScriptImportResolver({
           alwaysTryTypes: true,
         }),
-        createNodeResolver(),
       ],
-      "import/resolver": {
-        typescript: {
-          alwaysTryTypes: true,
-        },
-      },
     },
     plugins: {
       import: importX,
@@ -74,7 +68,6 @@ export default defineConfig([
         {
           "newlines-between": "always",
           alphabetize: { order: "asc", caseInsensitive: true },
-          pathGroupsExcludedImportTypes: [],
           groups: [
             "builtin",
             "external",
