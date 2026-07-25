@@ -16,7 +16,7 @@ export default defineConfig({
       {
         test: {
           name: "dom-tests",
-          include: ["tests/dom//**/*.test.{ts,js}"],
+          include: ["tests/dom/**/*.test.{ts,js}"],
           environment: "happy-dom",
         },
       },
