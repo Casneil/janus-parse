@@ -1,10 +1,10 @@
+import type { Config } from "./utils/index";
 import {
   validateText,
   getTags,
   normalizeWhitespace,
   serialize,
 } from "./utils/index.js";
-import type { Config } from "./utils/index";
 
 const defaultConfig = {
   tagsToRemove: [],
