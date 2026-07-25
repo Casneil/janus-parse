@@ -34,9 +34,9 @@ yarn install janus-parse
 
 ## Usage
 
-### 1. Server-Side Execution (Node.js)
+### Server-Side Execution (Node.js)
 
-The `janusServer` function is asynchronous. It dynamically imports [node-html-parser](https://www.npmjs.com/package/node-html-parser) to handle complex document object trees smoothly on the backend.
+The `janusServer` function is asynchronous. It imports [node-html-parser](https://www.npmjs.com/package/node-html-parser) to handle complex document object trees smoothly on the backend.
 
 ```typescript
 import { janusServer } from "janus-parse/server";
@@ -52,7 +52,7 @@ const rawHtml = `
 const cleanText = await janusServer(rawHtml); // Output: "Hello Universe This is a highly spaced sentence."
 ```
 
-### 2. Client-Side Execution (Browser)
+### Client-Side Execution (Browser)
 
 The `janusClient` function is synchronous. It ignores server node environments and hooks directly into the browser's native, hardware-optimized `DOMParser` engine.
 
@@ -64,37 +64,13 @@ const webMarkup =
 
 const textOnly = janusClient(webMarkup); // Output: " Dynamic Web App"
 ```
-
-### 3. Custom Configurations
-
-You can modify which HTML tags are targeted for destruction by passing an optional configuration object.
-
-```typescript
-const structuralConfig = {
-  tagsToRemove: ["span", "section"] // Adds additonal blacklist candidates,
-  tagsToPreserve: ["script"] // Preserves script tag in output,
-};
-```
-
-```typescript
-import { janusServer } from "janus-parse";
-
-const processedTextServer = await janusServer(htmlSource, structuralConfig);
-```
-
-```typescript
-import { janusClient } from "janus-parse";
-
-const processedTextClient = janusClient(htmlSource, structuralConfig);
-```
-
 ---
 
 ## API Reference
 
-### `Config`
+#### `Config`
 
-TypeScript interface passed to fine-tune tag removal behaviors.
+Optionanl second function parameter to fine-tune tag removal behaviors.
 
 ```typescript
 type Config {
@@ -102,17 +78,8 @@ type Config {
   tagsToPreserve?: string[];
 }
 ```
-
-#### `janusServer(text: string, config?: Config): Promise<string>`
-
-- **`text`**: The input raw HTML string.
-- **`config`**: Optional rule blocks to override standard cleaning lists.
-- **Returns**: A promise that resolves to a stripped, whitespace-normalized single-line string.
-
 ---
-
-#### `janusClient(text: string, config?: Config): string`
-
-- **`text`**: The input raw HTML string.
-- **`config`**: Optional rule blocks to override standard cleaning lists.
-- **Returns**: A clean string containing target inner-text nodes parsed from the browser context.
+- `rawHtml`: The input HTML string.
+- `config`: Optional rule blocks to override standard cleaning lists.
+- `janusServer(rawHtml, config)`: Returns a promise that resolves to a stripped, whitespace-normalized single-line string
+- `janusClient(rawHtml, config)`: Returns a stripped, whitespace-normalized single-line string
