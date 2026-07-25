@@ -64,6 +64,7 @@ const webMarkup =
 
 const textOnly = janusClient(webMarkup); // Output: " Dynamic Web App"
 ```
+
 ---
 
 ## API Reference
@@ -78,7 +79,9 @@ type Config {
   tagsToPreserve?: string[];
 }
 ```
+
 ---
+
 - `rawHtml`: The input HTML string.
 - `config`: Optional rule blocks to override standard cleaning lists.
 - `janusServer(rawHtml, config)`: Returns a promise that resolves to a stripped, whitespace-normalized single-line string
