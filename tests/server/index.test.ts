@@ -5,7 +5,7 @@ import { janusServer } from "../../lib/server";
 describe("janusServer()", () => {
   it("does inform user of unexpected arguments and does no work", async () => {
     //@ts-expect-error testing purposes
-    expect(() => janusServer(7)).rejects.toThrow(
+    await expect(() => janusServer(7)).rejects.toThrow(
       `======================================================
 => 7 recieved. String expected.
 ======================================================`,

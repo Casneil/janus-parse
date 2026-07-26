@@ -7,7 +7,7 @@ export default defineConfig({
         test: {
           name: "node-tests",
           include: [
-            "tests/node/**/*.test.{ts,js}",
+            "tests/server/**/*.test.{ts,js}",
             "tests/utils/**/*.test.{ts,js}",
           ],
           environment: "node",
@@ -16,7 +16,7 @@ export default defineConfig({
       {
         test: {
           name: "dom-tests",
-          include: ["tests/dom/**/*.test.{ts,js}"],
+          include: ["tests/client/**/*.test.{ts,js}"],
           environment: "happy-dom",
         },
       },
