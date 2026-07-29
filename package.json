@@ -16,9 +16,13 @@
     "THIRD-PARTY-NOTICES.md"
   ],
   "exports": {
+    "./server:stream": {
+      "types": "./dist/server/stream.d.ts",
+      "import": "./dist/server/stream.js"
+    },
     "./server": {
-      "types": "./dist/server.d.ts",
-      "import": "./dist/server.js"
+      "types": "./dist/server/server.d.ts",
+      "import": "./dist/server/server.js"
     },
     "./client": {
       "types": "./dist/client.d.ts",

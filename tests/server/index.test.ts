@@ -1,6 +1,6 @@
 import { expect, describe, it } from "vitest";
 
-import { janusServer } from "../../lib/server";
+import { janusServer } from "../../lib/server/server";
 
 describe("janusServer()", () => {
   it("does inform user of unexpected arguments and does no work", async () => {
