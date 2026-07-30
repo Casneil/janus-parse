@@ -68,7 +68,7 @@
     "fmt": "prettier --write .",
     "type:check": "tsc --noEmit",
     "build": "rm -rf ./dist && tsc --project tsconfig.lib.json",
-		"build:lib": "tsc --project tsconfig.lib.json",
+    "build:lib": "tsc --project tsconfig.lib.json",
     "prepublishOnly": "pnpm build",
     "bundle:size": "tsx scripts/bundle-size.ts"
   },
