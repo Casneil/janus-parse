@@ -16,9 +16,17 @@
     "THIRD-PARTY-NOTICES.md"
   ],
   "exports": {
+    ".": {
+      "types": "./dist/server/server.d.js",
+      "import": "./dist/server/server.js"
+    },
     "./server:stream": {
       "types": "./dist/server/stream.d.ts",
       "import": "./dist/server/stream.js"
+    },
+    "./client:stream": {
+      "types": "./dist/client/stream.d.ts",
+      "import": "./dist/client/stream.js"
     },
     "./server": {
       "types": "./dist/server/server.d.ts",
@@ -59,8 +67,10 @@
     "code:lint": "pnpm eslint --flag unstable_native_nodejs_ts_config --cache .",
     "fmt": "prettier --write .",
     "type:check": "tsc --noEmit",
-    "build": "tsc",
-    "prepublishOnly": "pnpm build"
+    "build": "rm -rf ./dist && tsc --project tsconfig.lib.json",
+		"build:lib": "tsc --project tsconfig.lib.json",
+    "prepublishOnly": "pnpm build",
+    "bundle:size": "tsx scripts/bundle-size.ts"
   },
   "dependencies": {
     "node-html-parser": "9.0.0"
@@ -72,6 +82,7 @@
     "@semantic-release/npm": "^13.1.5",
     "@semantic-release/release-notes-generator": "^14.1.1",
     "@types/node": "^26.1.1",
+    "esbuild": "^0.28.1",
     "eslint": "^10.7.0",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import-x": "^4.17.1",
