@@ -59,7 +59,7 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "node-html-parser": "9.0.0"
+    "node-html-parser": "9.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
