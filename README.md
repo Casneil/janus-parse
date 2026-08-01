@@ -57,6 +57,20 @@ const rawHtml = `
 const cleanText = await janusServer(rawHtml); // Output: "Hello Universe This is a highly spaced sentence."
 ```
 
+The `janusServerStream` function is asynchronous. It supports streaming local or from a url.
+
+```typescript
+import { janusServerStream } from "janus-parse/server/stream";
+
+const cleanText = await janusServerStream({ filePath: "./sample.html" });
+```
+
+```typescript
+import { janusServerStream } from "janus-parse/server/stream";
+
+const cleanText = await janusServerStream({ url: "https://url.com" });
+```
+
 ### Client-Side Execution (Browser)
 
 The `janusClient` function is synchronous. It ignores server node environments and hooks directly into the browser's native, hardware-optimized `DOMParser` engine.
@@ -72,6 +86,14 @@ const textOnly = janusClient(webMarkup); // Output: " Dynamic Web App"
 
 ---
 
+```typescript
+import { janusClientStream } from "janus-parse/client/stream";
+
+const cleanText = await janusClientStream({ url: "https://url.com" });
+```
+
+---
+
 ## API Reference
 
 #### `Config`
@@ -82,7 +104,22 @@ Optionanl second function parameter to fine-tune tag removal behaviors.
 type Config {
   tagsToRemove?: string[];
   tagsToPreserve?: string[];
-}
+};
+
+type JanusClientStreamConfig = {
+  url: string;
+  config?: Config;
+  encoding?: BufferEncoding;
+  fetchOptions?: RequestInit;
+};
+
+type JanusServerStreamConfig = {
+  url?: string;
+  config?: Config;
+  encoding?: BufferEncoding;
+  fetchOptions?: RequestInit;
+	filePath?: string;
+};
 ```
 
 ---
@@ -91,3 +128,14 @@ type Config {
 - `config`: Optional rule blocks to override standard cleaning lists.
 - `janusServer(rawHtml, config)`: Returns a promise that resolves to a stripped, whitespace-normalized single-line string
 - `janusClient(rawHtml, config)`: Returns a stripped, whitespace-normalized single-line string
+
+## 📦 Bundle Size
+
+This package is split into targeted modules. Modern bundlers will only bundle the exact module you import, keeping your builds incredibly lightweight.
+
+| Import Path                 | Target Environment | Size (Minified + Gzipped) |
+| :-------------------------- | :----------------- | :------------------------ |
+| `janus-parse/server`        | Node.js            | **~47.6 KB**              |
+| `janus-parse/server:stream` | Node.js            | **~49 KB**                |
+| `janus-parse/client`        | Browser            | **~700 B**                |
+| `janus-parse/client:stream` | Browser            | **~1 KB**                 |
