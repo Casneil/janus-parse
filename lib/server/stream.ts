@@ -21,18 +21,18 @@ type JanusFileConfig = Omit<ConfigOptions, "fetchOptions"> & {
 };
 type JanusStreamConfig = ConfigOptions & { url: string };
 
-export async function janusStream({
+export async function janusStreamServer({
   config,
   filePath,
   encoding,
 }: JanusFileConfig): Promise<string>;
-export async function janusStream({
+export async function janusStreamServer({
   url,
   encoding,
   fetchOptions,
   config,
 }: JanusStreamConfig): Promise<string>;
-export async function janusStream({
+export async function janusStreamServer({
   encoding = "utf8",
   filePath = "",
   fetchOptions = {},

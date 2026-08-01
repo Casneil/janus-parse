@@ -11,7 +11,7 @@ vi.doMock("node:fs/promises", () => ({
 const fetchSpy = vi.spyOn(globalThis, "fetch");
 const mockClose = vi.fn().mockResolvedValue(undefined);
 
-describe("janusStream() local file stream", () => {
+describe("janusStreamServer() local file stream", () => {
   beforeEach(() => {
     vi.resetModules();
     vi.clearAllMocks();
@@ -23,8 +23,8 @@ describe("janusStream() local file stream", () => {
       close: mockClose,
     });
 
-    const { janusStream } = await import("../../lib/server/stream");
-    const result = await janusStream({
+    const { janusStreamServer } = await import("../../lib/server/stream");
+    const result = await janusStreamServer({
       filePath: "test/path.html",
     });
 
@@ -44,8 +44,8 @@ describe("janusStream() local file stream", () => {
       open: mockOpenSpy,
     }));
 
-    const { janusStream } = await import("../../lib/server/stream");
-    const result = await janusStream({
+    const { janusStreamServer } = await import("../../lib/server/stream");
+    const result = await janusStreamServer({
       filePath: "test/path.html",
       encoding: "ascii",
     });
@@ -67,8 +67,8 @@ describe("janusStream() local file stream", () => {
       open: mockOpenSpy,
     }));
 
-    const { janusStream } = await import("../../lib/server/stream");
-    const result = await janusStream({
+    const { janusStreamServer } = await import("../../lib/server/stream");
+    const result = await janusStreamServer({
       filePath: "test/path.html",
       encoding: "ascii",
     });
@@ -88,8 +88,8 @@ describe("janusStream() local file stream", () => {
       open: mockOpenSpy,
     }));
 
-    const { janusStream } = await import("../../lib/server/stream");
-    const result = await janusStream({
+    const { janusStreamServer } = await import("../../lib/server/stream");
+    const result = await janusStreamServer({
       filePath: "test/path.html",
       config: { tagsToPreserve: ["iframe"] },
     });
@@ -114,8 +114,8 @@ describe("janusStream() local file stream", () => {
       close: mockClose,
     });
 
-    const { janusStream } = await import("../../lib/server/stream");
-    const result = janusStream({
+    const { janusStreamServer } = await import("../../lib/server/stream");
+    const result = janusStreamServer({
       filePath: "test/path.html",
     });
 
@@ -144,7 +144,7 @@ function createMockFetchStream(
   return transformStream.readable;
 }
 
-describe("janusStream() URL stream", () => {
+describe("janusStreamServer() URL stream", () => {
   beforeEach(() => {
     vi.resetModules();
     vi.clearAllMocks();
@@ -160,8 +160,8 @@ describe("janusStream() URL stream", () => {
       body: mockStream,
     } as Response);
 
-    const { janusStream } = await import("../../lib/server/stream");
-    const result = await janusStream({
+    const { janusStreamServer } = await import("../../lib/server/stream");
+    const result = await janusStreamServer({
       url: "https://test-example.com",
     });
 
@@ -180,8 +180,8 @@ describe("janusStream() URL stream", () => {
       body: mockStream,
     } as Response);
 
-    const { janusStream } = await import("../../lib/server/stream");
-    const result = await janusStream({
+    const { janusStreamServer } = await import("../../lib/server/stream");
+    const result = await janusStreamServer({
       url: "https://test-example.com",
       encoding: "ascii",
     });
@@ -203,8 +203,8 @@ describe("janusStream() URL stream", () => {
       body: mockStream,
     } as Response);
 
-    const { janusStream } = await import("../../lib/server/stream");
-    const result = await janusStream({
+    const { janusStreamServer } = await import("../../lib/server/stream");
+    const result = await janusStreamServer({
       url: "https://test-example.com",
     });
 
@@ -220,10 +220,10 @@ describe("janusStream() URL stream", () => {
       headers: new Headers({ "Content-Type": "text/html; charset=utf-8" }),
     } as Response);
 
-    const { janusStream } = await import("../../lib/server/stream");
+    const { janusStreamServer } = await import("../../lib/server/stream");
 
     await expect(
-      janusStream({ url: "https://test-example.com" }),
+      janusStreamServer({ url: "https://test-example.com" }),
     ).rejects.toThrow(/Failed downloading stream/);
   });
 });
