@@ -24,7 +24,7 @@ export async function janusClientStream({
   return await _janusClient(response.body, config, encoding);
 }
 
-export async function _janusClient(
+async function _janusClient(
   inputStream: ReadableStream<Uint8Array>,
   config?: Config,
   encoding = "utf8",

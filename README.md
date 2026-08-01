@@ -60,13 +60,13 @@ const cleanText = await janusServer(rawHtml); // Output: "Hello Universe This is
 The `janusServerStream` function is asynchronous. It supports streaming local or from a url.
 
 ```typescript
-import { janusServerStream } from "janus-parse/server:stream";
+import { janusServerStream } from "janus-parse/server/stream";
 
 const cleanText = await janusServerStream({ filePath: "./sample.html" });
 ```
 
 ```typescript
-import { janusServerStream } from "janus-parse/server:stream";
+import { janusServerStream } from "janus-parse/server/stream";
 
 const cleanText = await janusServerStream({ url: "https://url.com" });
 ```
@@ -87,7 +87,7 @@ const textOnly = janusClient(webMarkup); // Output: " Dynamic Web App"
 ---
 
 ```typescript
-import { janusClientStream } from "janus-parse/client:stream";
+import { janusClientStream } from "janus-parse/client/stream";
 
 const cleanText = await janusClientStream({ url: "https://url.com" });
 ```
