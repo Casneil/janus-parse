@@ -118,7 +118,7 @@ type JanusServerStreamConfig = {
   config?: Config;
   encoding?: BufferEncoding;
   fetchOptions?: RequestInit;
-	filePath?: string;
+  filePath?: string;
 };
 ```
 
