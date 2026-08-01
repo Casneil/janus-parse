@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 
-import { janusStreamClient } from "../../lib/client/stream";
+import { janusClientStream } from "../../lib/client/stream";
 
 const fetchSpy = vi.spyOn(globalThis, "fetch");
 function createMockBrowserStream(
@@ -21,7 +21,7 @@ function createMockBrowserStream(
   });
 }
 
-describe("janusStreamClient()", () => {
+describe("janusClientStream()", () => {
   it("should successfully process and compile tiny browser chunks", async () => {
     const mockStream = createMockBrowserStream(
       "<div>  Hello   Browser  </div>",
@@ -33,7 +33,7 @@ describe("janusStreamClient()", () => {
       body: mockStream,
     } as Response);
 
-    expect(await janusStreamClient({ url: "https://test-example.com" })).toBe(
+    expect(await janusClientStream({ url: "https://test-example.com" })).toBe(
       "Hello Browser",
     );
   });
@@ -47,7 +47,7 @@ describe("janusStreamClient()", () => {
       body: mockStream,
     } as Response);
 
-    const result = await janusStreamClient({
+    const result = await janusClientStream({
       url: "https://test-example.com",
       encoding: "ascii",
     });
@@ -66,7 +66,7 @@ describe("janusStreamClient()", () => {
       body: mockStream,
     } as Response);
 
-    const result = await janusStreamClient({ url: "https://test-example.com" });
+    const result = await janusClientStream({ url: "https://test-example.com" });
 
     expect(result).toBe("Safe");
   });
@@ -82,7 +82,7 @@ describe("janusStreamClient()", () => {
       body: mockStream,
     } as Response);
 
-    const result = await janusStreamClient({
+    const result = await janusClientStream({
       url: "https://test-example.com",
       config: { tagsToPreserve: ["iframe"] },
     });
@@ -97,7 +97,7 @@ describe("janusStreamClient()", () => {
     } as Response);
 
     await expect(
-      janusStreamClient({ url: "https://test-example.com" }),
+      janusClientStream({ url: "https://test-example.com" }),
     ).rejects.toThrow(/Failed downloading stream/);
   });
 });

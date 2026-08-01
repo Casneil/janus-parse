@@ -1,19 +1,19 @@
 import { janusClient } from "./client.js";
 import type { Config } from "../utils/index.js";
 
-type JanConfig = {
+type JanusClientStreamConfig = {
   url: string;
   config?: Config;
   encoding?: BufferEncoding;
   fetchOptions?: RequestInit;
 };
 
-export async function janusStreamClient({
+export async function janusClientStream({
   url,
   config,
   encoding,
   fetchOptions,
-}: JanConfig): Promise<string> {
+}: JanusClientStreamConfig): Promise<string> {
   const response = await fetch(url, fetchOptions);
 
   if (!response.ok || !response.body) {
