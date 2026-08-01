@@ -144,7 +144,7 @@ function createMockFetchStream(
   return transformStream.readable;
 }
 
-describe("janusStreamServer() URL stream", () => {
+describe("janusStreamServer() remote stream", () => {
   beforeEach(() => {
     vi.resetModules();
     vi.clearAllMocks();

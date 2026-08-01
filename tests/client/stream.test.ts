@@ -21,7 +21,7 @@ function createMockBrowserStream(
   });
 }
 
-describe("janusClientStream()", () => {
+describe("janusClientStream() remote", () => {
   it("should successfully process and compile tiny browser chunks", async () => {
     const mockStream = createMockBrowserStream(
       "<div>  Hello   Browser  </div>",
