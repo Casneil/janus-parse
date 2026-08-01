@@ -8,7 +8,7 @@ type Map = { name: string; loc: string };
 const rl = readline.createInterface({ input, output });
 const commandArguments: Record<Arguments, Map> = {
   c: { name: "client", loc: "dist/client/client.js" },
-  cs: { name: "client Stream", loc: "dist/client/stream.js" },
+  cs: { name: "client stream", loc: "dist/client/stream.js" },
   s: { name: "server", loc: "dist/server/server.js" },
   ss: { name: "server stream", loc: "dist/server/stream.js" },
 };
