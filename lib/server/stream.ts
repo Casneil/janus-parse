@@ -3,7 +3,6 @@ import { open } from "node:fs/promises";
 import { Readable } from "node:stream";
 import { buffer } from "node:stream/consumers";
 
-import { janusServer } from "./server.js";
 import type { Config } from "../utils/index.js";
 
 type ConfigOptions = {
@@ -73,6 +72,8 @@ async function _janusServer(
   const bytesBuffer = await buffer(inputStream);
   const decoder = new TextDecoder(encoding);
   const text = decoder.decode(bytesBuffer);
+
+  const { janusServer } = await import("./server.js");
 
   return await janusServer(text, config);
 }
