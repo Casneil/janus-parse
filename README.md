@@ -134,8 +134,8 @@ type JanusServerStreamConfig = {
 This package is split into targeted modules. Modern bundlers will only bundle the exact module you import, keeping your builds incredibly lightweight.
 
 | Import Path                 | Target Environment | Size (Gzipped) |
-| :-------------------------- | :----------------- | :------------------------ |
-| `janus-parse/server`        | Node.js            | **~47.6 KB**              |
-| `janus-parse/server:stream` | Node.js            | **~49 KB**                |
-| `janus-parse/client`        | Browser            | **~700 B**                |
-| `janus-parse/client:stream` | Browser            | **~1 KB**                 |
+| :-------------------------- | :----------------- | :------------- |
+| `janus-parse/server`        | Node.js            | **~47.6 KB**   |
+| `janus-parse/server:stream` | Node.js            | **~49 KB**     |
+| `janus-parse/client`        | Browser            | **~700 B**     |
+| `janus-parse/client:stream` | Browser            | **~1 KB**      |
