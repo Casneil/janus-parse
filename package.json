@@ -17,8 +17,8 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/server/server.d.js",
-      "import": "./dist/server/server.js"
+      "types": "./dist/client/client.d.js",
+      "import": "./dist/client/client.js"
     },
     "./server/stream": {
       "types": "./dist/server/stream.d.ts",
