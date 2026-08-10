@@ -1,5 +1,3 @@
-import { parse } from "node-html-parser";
-
 import type { Config } from "../utils/index";
 import {
   validateText,
@@ -18,6 +16,7 @@ export async function janusServer(
   config: Config = defaultConfig,
 ) {
   validateText(text);
+  const { parse } = await import("node-html-parser");
   const root = parse(text);
   const { removedTags, preservedTags } = getTags(config);
 
