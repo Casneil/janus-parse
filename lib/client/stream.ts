@@ -44,6 +44,6 @@ async function _janusClient(
   } finally {
     reader.releaseLock();
   }
-	const { janusClient } = await import("./client.js");
+  const { janusClient } = await import("./client.js");
   return janusClient(text, config);
 }
