@@ -1,4 +1,3 @@
-import { janusClient } from "./client.js";
 import type { Config } from "../utils/index.js";
 
 type JanusClientStreamConfig = {
@@ -45,6 +44,6 @@ async function _janusClient(
   } finally {
     reader.releaseLock();
   }
-
+	const { janusClient } = await import("./client.js");
   return janusClient(text, config);
 }
