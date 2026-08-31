@@ -81,7 +81,7 @@
     "@semantic-release/github": "^12.0.9",
     "@semantic-release/npm": "^13.1.5",
     "@semantic-release/release-notes-generator": "^14.1.1",
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.4.0",
     "eslint": "^10.8.1",
     "esbuild": "^0.28.2",
     "eslint-import-resolver-typescript": "^4.4.5",
