@@ -46,7 +46,7 @@ importers:
         specifier: ^73.0.0
         version: 73.0.0(eslint@10.9.1(supports-color@7.2.0))
       happy-dom:
-        specifier: ^20.11.6
+        specifier: ^20.12.0
         version: 20.12.0
       prettier:
         specifier: ^3.9.6
