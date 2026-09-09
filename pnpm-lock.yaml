@@ -129,8 +129,8 @@ importers:
         specifier: ^14.1.1
         version: 14.1.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@6.0.3))(supports-color@7.2.0)
       '@types/node':
-        specifier: ^26.4.0
-        version: 26.4.0
+        specifier: ^26.5.0
+        version: 26.5.0
       esbuild:
         specifier: ^0.28.2
         version: 0.28.2
@@ -166,7 +166,7 @@ importers:
         version: 8.70.0(eslint@10.9.1(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@types/node@26.4.0)(happy-dom@20.12.0)(vite@8.2.1(@types/node@26.4.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0))
+        version: 5.0.0(@types/node@26.5.0)(happy-dom@20.12.0)(vite@8.2.1(@types/node@26.5.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0))
 
 packages:
 
@@ -662,8 +662,8 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/node@26.4.0':
-    resolution: {integrity: sha512-faiGnoIrLH/V8cibOMEAZ8pMw6oXqSukl29ra4mN8GdaB2ZewzeaLj+INpV5N+Z1eKWzY+IzaIZH2EIR6YZRNQ==}
+  '@types/node@26.5.0':
+    resolution: {integrity: sha512-dVSGpriSoCgz8WnDNTuSSuSv1PC/ALXihO4ulRZt7Md8k9mlbdin3lGOcDE8SnWOgf513ByWlXd7BK4azmyg/A==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -2379,8 +2379,8 @@ packages:
     engines: {node: '>=0.8.0'}
     hasBin: true
 
-  undici-types@8.3.0:
-    resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
 
   undici@6.28.0:
     resolution: {integrity: sha512-LIY910g9TI13YS95lrMFrs8Rm/u/irgHeTWoKCoteeJ04CUJ92eEfj0rVn+7VKMPBpUPiUoBKfhNyLI23EE/KA==}
@@ -3021,9 +3021,9 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/node@26.4.0':
+  '@types/node@26.5.0':
     dependencies:
-      undici-types: 8.3.0
+      undici-types: 8.9.0
 
   '@types/normalize-package-data@2.4.4': {}
 
@@ -3031,7 +3031,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 26.4.0
+      '@types/node': 26.5.0
 
   '@typescript-eslint/eslint-plugin@8.70.0(@typescript-eslint/parser@8.70.0(eslint@10.9.1(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint@10.9.1(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
@@ -3196,14 +3196,14 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.12.2':
     optional: true
 
-  '@vitest/mocker@5.0.0(vite@8.2.1(@types/node@26.4.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0))':
+  '@vitest/mocker@5.0.0(vite@8.2.1(@types/node@26.5.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.0
       estree-walker: 3.0.3
       magic-string: 1.2.3
     optionalDependencies:
-      vite: 8.2.1(@types/node@26.4.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0)
+      vite: 8.2.1(@types/node@26.5.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0)
 
   '@vitest/spy@5.0.0': {}
 
@@ -3283,7 +3283,7 @@ snapshots:
 
   buffer-image-size@0.6.4:
     dependencies:
-      '@types/node': 26.4.0
+      '@types/node': 26.5.0
 
   builtin-modules@5.3.0: {}
 
@@ -3802,7 +3802,7 @@ snapshots:
 
   happy-dom@20.12.0:
     dependencies:
-      '@types/node': 26.4.0
+      '@types/node': 26.5.0
       '@types/whatwg-mimetype': 3.0.2
       '@types/ws': 8.18.1
       buffer-image-size: 0.6.4
@@ -4614,7 +4614,7 @@ snapshots:
   uglify-js@3.19.3:
     optional: true
 
-  undici-types@8.3.0: {}
+  undici-types@8.9.0: {}
 
   undici@6.28.0: {}
 
@@ -4682,7 +4682,7 @@ snapshots:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
-  vite@8.2.1(@types/node@26.4.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0):
+  vite@8.2.1(@types/node@26.5.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -4690,16 +4690,16 @@ snapshots:
       rolldown: 1.2.3
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 26.4.0
+      '@types/node': 26.5.0
       esbuild: 0.28.2
       fsevents: 2.3.3
       tsx: 4.23.13
       yaml: 2.9.0
 
-  vitest@5.0.0(@types/node@26.4.0)(happy-dom@20.12.0)(vite@8.2.1(@types/node@26.4.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0)):
+  vitest@5.0.0(@types/node@26.5.0)(happy-dom@20.12.0)(vite@8.2.1(@types/node@26.5.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.0(vite@8.2.1(@types/node@26.4.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0))
+      '@vitest/mocker': 5.0.0(vite@8.2.1(@types/node@26.5.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0))
       chai: 6.2.2
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -4710,10 +4710,10 @@ snapshots:
       tinybench: 6.1.4
       tinyexec: 1.3.0
       tinyglobby: 0.2.17
-      vite: 8.2.1(@types/node@26.4.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0)
+      vite: 8.2.1(@types/node@26.5.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 26.4.0
+      '@types/node': 26.5.0
       happy-dom: 20.12.0
     transitivePeerDependencies:
       - msw
