@@ -2,7 +2,7 @@
   "name": "janus-parse",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
-  "packageManager": "pnpm@11.24.0",
+  "packageManager": "pnpm@12.3.4",
   "keywords": [
     "html-parser",
     "text-extractor",
@@ -73,7 +73,7 @@
     "bundle:size": "tsx scripts/bundle-size.ts"
   },
   "dependencies": {
-    "node-html-parser": "9.0.2"
+    "node-html-parser": "9.0.4"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -92,7 +92,7 @@
     "semantic-release": "^25.0.8",
     "tsx": "4.23.13",
     "typescript": "6.0.3",
-    "typescript-eslint": "^8.67.0",
+    "typescript-eslint": "^8.70.0",
     "vitest": "^5.0.0"
   },
   "prettier": {},
