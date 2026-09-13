@@ -2,7 +2,7 @@
   "name": "janus-parse",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
-  "packageManager": "pnpm@12.3.4",
+  "packageManager": "pnpm@12.4.1",
   "keywords": [
     "html-parser",
     "text-extractor",
