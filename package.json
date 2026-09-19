@@ -2,7 +2,7 @@
   "name": "janus-parse",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
-  "packageManager": "pnpm@12.3.4",
+  "packageManager": "pnpm@12.4.2",
   "keywords": [
     "html-parser",
     "text-extractor",
@@ -87,7 +87,7 @@
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import-x": "^4.17.1",
     "eslint-plugin-unicorn": "^74.0.0",
-    "happy-dom": "^20.14.0",
+    "happy-dom": "^20.14.5",
     "prettier": "^3.9.6",
     "semantic-release": "^25.0.8",
     "tsx": "4.23.13",
