@@ -2,7 +2,7 @@
   "name": "janus-parse",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
-  "packageManager": "pnpm@12.5.1",
+  "packageManager": "pnpm@12.6.0",
   "keywords": [
     "html-parser",
     "text-extractor",
@@ -78,8 +78,8 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@semantic-release/commit-analyzer": "^13.0.1",
-    "@semantic-release/github": "^12.0.9",
-    "@semantic-release/npm": "^13.1.5",
+    "@semantic-release/github": "12.0.10",
+    "@semantic-release/npm": "13.2.0",
     "@semantic-release/release-notes-generator": "^14.1.1",
     "@types/node": "^26.5.0",
     "eslint": "^10.10.0",
@@ -90,10 +90,10 @@
     "eslint-plugin-unicorn": "^76.0.0",
     "prettier": "^3.9.6",
     "semantic-release": "^25.0.8",
-    "tsx": "4.23.13",
+    "tsx": "4.23.15",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.70.0",
-    "vitest": "^5.0.0"
+    "vitest": "5.0.2"
   },
   "prettier": {},
   "--Typescript V 7--": "cannot use TS v7 until typescript-eslint adds support"
