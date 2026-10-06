@@ -44,6 +44,8 @@ export default defineConfig([
       "unicorn/prefer-module": "off",
       "unicorn/no-abusive-eslint-disable": "off",
       "unicorn/no-useless-undefined": "off",
+			// remove when: https://github.com/cheminfo/eslint-config/issues/126
+			'unicorn/no-top-level-side-effects': 'off',
       "unicorn/filename-case": [
         "error",
         {

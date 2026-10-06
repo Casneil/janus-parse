@@ -25,6 +25,7 @@ describe("janusClientStream() remote", () => {
   it("should successfully process and compile tiny browser chunks", async () => {
     const mockStream = createMockBrowserStream(
       "<div>  Hello   Browser  </div>",
+			10
     );
     fetchSpy.mockResolvedValue({
       ok: true,
@@ -39,7 +40,7 @@ describe("janusClientStream() remote", () => {
   });
 
   it("should support custom web encodings like ascii", async () => {
-    const mockStream = createMockBrowserStream("<div>Web Stream</div>");
+    const mockStream = createMockBrowserStream("<div>Web Stream</div>", 12);
     fetchSpy.mockResolvedValue({
       ok: true,
       status: 200,
@@ -58,6 +59,7 @@ describe("janusClientStream() remote", () => {
   it("should enforce your script blacklist rules", async () => {
     const mockStream = createMockBrowserStream(
       "<p>Safe</p><script>alert('bad')</script>",
+			30
     );
     fetchSpy.mockResolvedValue({
       ok: true,
