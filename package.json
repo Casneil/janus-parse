@@ -87,7 +87,7 @@
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import-x": "^4.17.1",
     "happy-dom": "21.0.4",
-    "eslint-plugin-unicorn": "77.0.0",
+    "eslint-plugin-unicorn": "78.0.0",
     "prettier": "3.9.10",
     "semantic-release": "^25.0.8",
     "tsx": "4.23.15",
