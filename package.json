@@ -73,7 +73,7 @@
     "bundle:size": "tsx scripts/bundle-size.ts"
   },
   "dependencies": {
-    "node-html-parser": "9.0.4"
+    "node-html-parser": "9.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
