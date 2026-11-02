@@ -12,7 +12,7 @@ A lightweight, high-performance, isomorphic HTML text extractor and sanitizer bu
 
 Here is exactly what it handles:
 
-1. **Completely removes blocked tags**: If a tag is blacklisted (like `script` or `style`), it doesn't just empty the content—it deletes the entire element so no empty HTML tags are left behind in your final string.
+1. **Completely removes blocked tags**: If a tag is blacklisted (like `script` or `style`), it doesn't just empty the content, it deletes the entire element so no empty HTML tags are left behind in your final string.
 2. **Keeps specific HTML intact**: You can pass tags into `tagsToPreserve` (like `<code>` or `<iframe>`). It will keep their full HTML layout exactly as it is while stripping out generic structural tags like `<div>` or `<span>`.
 3. **Cleans up messy whitespace**: It automatically strips out layout code indentations, tabs, and random line breaks, squashing them down into uniform, single spaces.
 
