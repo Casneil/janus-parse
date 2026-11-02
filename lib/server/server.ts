@@ -9,6 +9,7 @@ import {
 const defaultConfig = {
   tagsToRemove: [],
   tagsToPreserve: [],
+  preserveTagsWithAttrs: [],
 };
 
 export async function janusServer(
@@ -18,9 +19,13 @@ export async function janusServer(
   validateText(text);
   const { parse } = await import("node-html-parser");
   const root = parse(text);
-  const { removedTags, preservedTags } = getTags(config);
-
+  const { removedTags, preservedTags, preserveTagsWithAttrs } = getTags(config);
   return normalizeWhitespace(
-    serialize({ node: root, removedTags, preservedTags }),
+    serialize({
+      node: root,
+      removedTags,
+      preservedTags,
+      preserveTagsWithAttrs,
+    }),
   );
 }

@@ -3,6 +3,7 @@ import type { HTMLElement as NodeHTMLElement } from "node-html-parser";
 export type Config = {
   tagsToRemove?: string[];
   tagsToPreserve?: string[];
+  preserveTagsWithAttrs?: string[];
 };
 
 const defaultBlacklistTags = new Set(["script", "style"]);
@@ -23,6 +24,7 @@ export function normalizeWhitespace(text = "") {
 export function getTags(config: Config) {
   const removedTags = new Set(defaultBlacklistTags);
   const preservedTags = new Set<string>();
+	const preserveTagsWithAttrs = new Set<string>([config.preserveTagsWithAttrs?.join("") ?? ""]);
 
   if (config.tagsToRemove) {
     addBlackListTags(removedTags, config.tagsToRemove);
@@ -36,18 +38,22 @@ export function getTags(config: Config) {
     });
   }
 
-  return { removedTags, preservedTags };
+  return { removedTags, preservedTags, preserveTagsWithAttrs };
 }
 
+type SerializeParams = {
+  node: NodeHTMLElement;
+  removedTags: Set<string>;
+  preservedTags: Set<string>;
+  preserveTagsWithAttrs?: Set<string>;
+};
 export function serialize({
   node,
   removedTags,
   preservedTags,
-}: {
-  node: Node;
-  removedTags: Set<string>;
-  preservedTags: Set<string>;
-}): string {
+  // we cannot peserve tags which are N level deep without overhead. Preserve all tags which have whitelist attributes. Tags with attributes to preserve must be listed in the same order as they appear in the HTML string. This is a limitation of the current implementation.
+  preserveTagsWithAttrs,
+}: SerializeParams): string {
   if (!node) return "";
 
   if (node.nodeType === 3) {
@@ -67,20 +73,24 @@ export function serialize({
   //  Keep preserved tags intact along with their outer HTML structure
   if (preservedTags.has(tag)) {
     const outerHTML = getNodeProperty(node, "outerHTML");
-
     return (
       outerHTML ??
-      (typeof node.toString === "function" ? node.toString() : undefined) ??
+      (typeof String(node) === "function" ? String(node) : undefined) ??
       ""
     );
   }
 
-  const children = [...node.childNodes] as Node[];
+  const children = [...node.childNodes] as NodeHTMLElement[];
+
   return children
-    .map((child) => serialize({ node: child, removedTags, preservedTags }))
+    .map((child) => {
+      if (preserveTagsWithAttrs?.has(child.rawAttrs?.split(" ").join(""))) {
+        return `<${child.rawTagName} ${child.rawAttrs}>${child.rawText}</${child.rawTagName}>`;
+      }
+      return serialize({ node: child, removedTags, preservedTags });
+    })
     .join("");
 }
-
 function removeBlackListTags({
   removedTags,
   preservedTags,
@@ -103,14 +113,12 @@ function addBlackListTags(preserveTags: Set<string>, tagsToRemove: string[]) {
   }
 }
 
-type Node = NodeHTMLElement | ChildNode;
 type LookupType = "outerHTML" | "text" | "rawText" | "tagName";
-
 function getNodeProperty(
-  node: Node,
+  node: NodeHTMLElement,
   lookup: LookupType = "outerHTML",
 ): string | undefined {
-  const targetNode = node as Record<LookupType, string>;
+  const targetNode = node;
   const value = targetNode[lookup];
 
   return value ?? undefined;

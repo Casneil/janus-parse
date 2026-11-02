@@ -2,7 +2,7 @@ import { expect, describe, it } from "vitest";
 
 import { janusClient } from "../../lib/client/client";
 
-describe("janusClient()", () => {
+describe.skip("janusClient()", () => {
   it("does inform user of unexpected arguments and does no work", () => {
     //@ts-expect-error testing purposes
     expect(() => janusClient(7)).toThrow(

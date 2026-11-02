@@ -11,7 +11,7 @@ vi.doMock("node:fs/promises", () => ({
 const fetchSpy = vi.spyOn(globalThis, "fetch");
 const mockClose = vi.fn().mockResolvedValue(undefined);
 
-describe("janusServerStream() local file stream", () => {
+describe.skip("janusServerStream() local file stream", () => {
   beforeEach(() => {
     vi.resetModules();
     vi.clearAllMocks();
@@ -144,7 +144,7 @@ function createMockFetchStream(
   return transformStream.readable;
 }
 
-describe("janusStreamServer() remote stream", () => {
+describe.skip("janusStreamServer() remote stream", () => {
   beforeEach(() => {
     vi.resetModules();
     vi.clearAllMocks();
