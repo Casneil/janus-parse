@@ -24,7 +24,9 @@ export function normalizeWhitespace(text = "") {
 export function getTags(config: Config) {
   const removedTags = new Set(defaultBlacklistTags);
   const preservedTags = new Set<string>();
-	const preserveTagsWithAttrs = new Set<string>([config.preserveTagsWithAttrs?.join("") ?? ""]);
+  const preserveTagsWithAttributes = new Set<string>(
+    config.preserveTagsWithAttrs,
+  );
 
   if (config.tagsToRemove) {
     addBlackListTags(removedTags, config.tagsToRemove);
@@ -38,11 +40,16 @@ export function getTags(config: Config) {
     });
   }
 
-  return { removedTags, preservedTags, preserveTagsWithAttrs };
+  return {
+    removedTags,
+    preservedTags,
+    preserveTagsWithAttrs: preserveTagsWithAttributes,
+  };
 }
+type SerializableNode = NodeHTMLElement | HTMLElement;
 
-type SerializeParams = {
-  node: NodeHTMLElement;
+type SerializeParameters = {
+  node: SerializableNode;
   removedTags: Set<string>;
   preservedTags: Set<string>;
   preserveTagsWithAttrs?: Set<string>;
@@ -51,9 +58,8 @@ export function serialize({
   node,
   removedTags,
   preservedTags,
-  // we cannot peserve tags which are N level deep without overhead. Preserve all tags which have whitelist attributes. Tags with attributes to preserve must be listed in the same order as they appear in the HTML string. This is a limitation of the current implementation.
   preserveTagsWithAttrs,
-}: SerializeParams): string {
+}: SerializeParameters): string {
   if (!node) return "";
 
   if (node.nodeType === 3) {
@@ -70,8 +76,29 @@ export function serialize({
   //  Completely ignore blacklisted tags
   if (removedTags.has(tag)) return "";
 
-  //  Keep preserved tags intact along with their outer HTML structure
+  const children = [...node.childNodes] as NodeHTMLElement[];
+  function serializeChildren() {
+    return children
+      .map((child) =>
+        serialize({
+          node: child,
+          removedTags,
+          preservedTags,
+          preserveTagsWithAttrs,
+        }),
+      )
+      .join("");
+  }
+
   if (preservedTags.has(tag)) {
+    if (
+      preserveTagsWithAttrs &&
+      preserveTagsWithAttrs.size > 0 &&
+      !hasPreservedAttribute(node, preserveTagsWithAttrs)
+    ) {
+      return serializeChildren();
+    }
+
     const outerHTML = getNodeProperty(node, "outerHTML");
     return (
       outerHTML ??
@@ -80,17 +107,37 @@ export function serialize({
     );
   }
 
-  const children = [...node.childNodes] as NodeHTMLElement[];
-
-  return children
-    .map((child) => {
-      if (preserveTagsWithAttrs?.has(child.rawAttrs?.split(" ").join(""))) {
-        return `<${child.rawTagName} ${child.rawAttrs}>${child.rawText}</${child.rawTagName}>`;
-      }
-      return serialize({ node: child, removedTags, preservedTags });
-    })
-    .join("");
+  return serializeChildren();
 }
+
+function sanitizeAttribute(attribute: string) {
+  return attribute.replace(/\s+/g, " ").replace(/'/g, '"').trim();
+}
+
+function hasPreservedAttribute(
+  node: SerializableNode,
+  preserveTagsWithAttributes: Set<string>,
+) {
+  const nodeType = "nodeType" in node ? node.nodeType : undefined;
+  const rawAttributes =
+    "rawAttrs" in node
+      ? (node.rawAttrs ?? "")
+      : nodeType === 1
+        ? [...(node as Element).attributes]
+            .map(({ name, value }) => `${name}="${value}"`)
+            .join(" ")
+        : "";
+  const normalizedAttributes = sanitizeAttribute(rawAttributes);
+
+  return rawAttributes
+    ? [...preserveTagsWithAttributes].some(
+        (attribute) =>
+          Boolean(attribute.trim()) &&
+          normalizedAttributes.includes(sanitizeAttribute(attribute)),
+      )
+    : false;
+}
+
 function removeBlackListTags({
   removedTags,
   preservedTags,
@@ -115,11 +162,11 @@ function addBlackListTags(preserveTags: Set<string>, tagsToRemove: string[]) {
 
 type LookupType = "outerHTML" | "text" | "rawText" | "tagName";
 function getNodeProperty(
-  node: NodeHTMLElement,
+  node: SerializableNode,
   lookup: LookupType = "outerHTML",
 ): string | undefined {
   const targetNode = node;
-  const value = targetNode[lookup];
+  const value = (targetNode as Partial<Record<LookupType, string>>)[lookup];
 
   return value ?? undefined;
 }
