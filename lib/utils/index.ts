@@ -122,11 +122,11 @@ function hasPreservedAttribute(
   const rawAttributes =
     "rawAttrs" in node
       ? (node.rawAttrs ?? "")
-      : nodeType === 1
+      : (nodeType === 1
         ? [...(node as Element).attributes]
             .map(({ name, value }) => `${name}="${value}"`)
             .join(" ")
-        : "";
+        : "");
   const normalizedAttributes = sanitizeAttribute(rawAttributes);
 
   return (
