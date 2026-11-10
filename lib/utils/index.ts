@@ -129,13 +129,14 @@ function hasPreservedAttribute(
         : "";
   const normalizedAttributes = sanitizeAttribute(rawAttributes);
 
-  return rawAttributes
-    ? [...preserveTagsWithAttributes].some(
-        (attribute) =>
-          Boolean(attribute.trim()) &&
-          normalizedAttributes.includes(sanitizeAttribute(attribute)),
-      )
-    : false;
+  return (
+    rawAttributes &&
+    [...preserveTagsWithAttributes].some(
+      (attribute) =>
+        Boolean(attribute.trim()) &&
+        normalizedAttributes.includes(sanitizeAttribute(attribute)),
+    )
+  );
 }
 
 function removeBlackListTags({
