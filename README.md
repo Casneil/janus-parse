@@ -14,7 +14,8 @@ Here is exactly what it handles:
 
 1. **Completely removes blocked tags**: If a tag is blacklisted (like `script` or `style`), it doesn't just empty the content, it deletes the entire element so no empty HTML tags are left behind in your final string.
 2. **Keeps specific HTML intact**: You can pass tags into `tagsToPreserve` (like `<code>` or `<iframe>`). It will keep their full HTML layout exactly as it is while stripping out generic structural tags like `<div>` or `<span>`.
-3. **Cleans up messy whitespace**: It automatically strips out layout code indentations, tabs, and random line breaks, squashing them down into uniform, single spaces.
+3. **Preserves tags selectively by attribute**: Use `preserveTagsWithAttrs` with `tagsToPreserve` to retain only matching tags.
+4. **Cleans up messy whitespace**: It automatically strips out layout code indentations, tabs, and random line breaks, squashing them down into uniform, single spaces.
 
 > **Note on implementation**: While the underlying `node-html-parser` library is excellent at reading and building HTML trees, it doesn't handle this type of conditional tag removal, selective HTML preservation, or text formatting out of the box. `janus-parse` bridges that gap by adding this specific data-cleaning layer on top of the parser.
 
@@ -98,12 +99,13 @@ const cleanText = await janusClientStream({ url: "https://url.com" });
 
 #### `Config`
 
-Optionanl second function parameter to fine-tune tag removal behaviors.
+Optional second function parameter to fine-tune tag removal and preservation behaviors.
 
 ```typescript
-type Config {
+type Config = {
   tagsToRemove?: string[];
   tagsToPreserve?: string[];
+  preserveTagsWithAttrs?: string[];
 };
 
 type JanusClientStreamConfig = {
@@ -120,6 +122,23 @@ type JanusServerStreamConfig = {
   fetchOptions?: RequestInit;
   filePath?: string;
 };
+```
+
+When `preserveTagsWithAttrs` is provided, a preserved tag is kept only if its attributes contain one of the specified strings; otherwise, the tag's markup is removed but its contents remain. Attribute matching ignores extra whitespace and treats single and double quotes as equivalent.
+
+All four APIs support these configuration options: `janusServer`, `janusClient`, `janusServerStream`, and `janusClientStream`.
+
+For example, preserve only links with `data-keep="true"`:
+
+```typescript
+const cleanText = await janusServer(
+  '<a href="/about">About</a> <a data-keep="true">Keep this link</a>',
+  {
+    tagsToPreserve: ["a"],
+    preserveTagsWithAttrs: ['data-keep="true"'],
+  },
+);
+// Output: 'About <a data-keep="true">Keep this link</a>'
 ```
 
 ---
