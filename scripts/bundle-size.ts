@@ -29,7 +29,7 @@ try {
   const bytes = Number(
     String(
       execSync(
-        `pnpm esbuild ${commandArguments[answer]["loc"]} --bundle --minify ${nodeFlag} | gzip -c | wc -c`,
+        `pnpm esbuild ${commandArguments[answer]["loc"]} --bundle --minify ${nodeFlag} --external:node-html-parser | gzip -c | wc -c`,
       ),
     ).trim(),
   );

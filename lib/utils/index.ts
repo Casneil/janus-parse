@@ -3,6 +3,7 @@ import type { HTMLElement as NodeHTMLElement } from "node-html-parser";
 export type Config = {
   tagsToRemove?: string[];
   tagsToPreserve?: string[];
+  preserveTagsWithAttrs?: string[];
 };
 
 const defaultBlacklistTags = new Set(["script", "style"]);
@@ -23,6 +24,9 @@ export function normalizeWhitespace(text = "") {
 export function getTags(config: Config) {
   const removedTags = new Set(defaultBlacklistTags);
   const preservedTags = new Set<string>();
+  const preserveTagsWithAttributes = new Set<string>(
+    config.preserveTagsWithAttrs,
+  );
 
   if (config.tagsToRemove) {
     addBlackListTags(removedTags, config.tagsToRemove);
@@ -36,18 +40,26 @@ export function getTags(config: Config) {
     });
   }
 
-  return { removedTags, preservedTags };
+  return {
+    removedTags,
+    preservedTags,
+    preserveTagsWithAttrs: preserveTagsWithAttributes,
+  };
 }
+type SerializableNode = NodeHTMLElement | HTMLElement;
 
+type SerializeParameters = {
+  node: SerializableNode;
+  removedTags: Set<string>;
+  preservedTags: Set<string>;
+  preserveTagsWithAttrs?: Set<string>;
+};
 export function serialize({
   node,
   removedTags,
   preservedTags,
-}: {
-  node: Node;
-  removedTags: Set<string>;
-  preservedTags: Set<string>;
-}): string {
+  preserveTagsWithAttrs,
+}: SerializeParameters): string {
   if (!node) return "";
 
   if (node.nodeType === 3) {
@@ -64,21 +76,67 @@ export function serialize({
   //  Completely ignore blacklisted tags
   if (removedTags.has(tag)) return "";
 
-  //  Keep preserved tags intact along with their outer HTML structure
-  if (preservedTags.has(tag)) {
-    const outerHTML = getNodeProperty(node, "outerHTML");
+  const children = [...node.childNodes] as NodeHTMLElement[];
+  function serializeChildren() {
+    return children
+      .map((child) =>
+        serialize({
+          node: child,
+          removedTags,
+          preservedTags,
+          preserveTagsWithAttrs,
+        }),
+      )
+      .join("");
+  }
 
+  if (preservedTags.has(tag)) {
+    if (
+      preserveTagsWithAttrs &&
+      preserveTagsWithAttrs.size > 0 &&
+      !hasPreservedAttribute(node, preserveTagsWithAttrs)
+    ) {
+      return serializeChildren();
+    }
+
+    const outerHTML = getNodeProperty(node, "outerHTML");
     return (
       outerHTML ??
-      (typeof node.toString === "function" ? node.toString() : undefined) ??
+      (typeof String(node) === "function" ? String(node) : undefined) ??
       ""
     );
   }
 
-  const children = [...node.childNodes] as Node[];
-  return children
-    .map((child) => serialize({ node: child, removedTags, preservedTags }))
-    .join("");
+  return serializeChildren();
+}
+
+function sanitizeAttribute(attribute: string) {
+  return attribute.replace(/\s+/g, " ").replace(/'/g, '"').trim();
+}
+
+function hasPreservedAttribute(
+  node: SerializableNode,
+  preserveTagsWithAttributes: Set<string>,
+) {
+  const nodeType = "nodeType" in node ? node.nodeType : undefined;
+  const rawAttributes =
+    "rawAttrs" in node
+      ? (node.rawAttrs ?? "")
+      : (nodeType === 1
+        ? [...(node as Element).attributes]
+            .map(({ name, value }) => `${name}="${value}"`)
+            .join(" ")
+        : "");
+  const normalizedAttributes = sanitizeAttribute(rawAttributes);
+
+  return (
+    rawAttributes &&
+    [...preserveTagsWithAttributes].some(
+      (attribute) =>
+        Boolean(attribute.trim()) &&
+        normalizedAttributes.includes(sanitizeAttribute(attribute)),
+    )
+  );
 }
 
 function removeBlackListTags({
@@ -103,15 +161,13 @@ function addBlackListTags(preserveTags: Set<string>, tagsToRemove: string[]) {
   }
 }
 
-type Node = NodeHTMLElement | ChildNode;
 type LookupType = "outerHTML" | "text" | "rawText" | "tagName";
-
 function getNodeProperty(
-  node: Node,
+  node: SerializableNode,
   lookup: LookupType = "outerHTML",
 ): string | undefined {
-  const targetNode = node as Record<LookupType, string>;
-  const value = targetNode[lookup];
+  const targetNode = node;
+  const value = (targetNode as Partial<Record<LookupType, string>>)[lookup];
 
   return value ?? undefined;
 }

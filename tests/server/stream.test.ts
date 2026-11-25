@@ -77,6 +77,62 @@ describe("janusServerStream() local file stream", () => {
     expect(mockOpenSpy).toHaveBeenCalledWith("test/path.html", "r");
   });
 
+  it("preserves a single tag with matching attributes when multiple instances of the same tag is present local stream", async () => {
+    mockOpenSpy.mockResolvedValue({
+      createReadStream: () =>
+        Readable.from([
+          "<div>Strip Me <a>also strip me</a> <a data-keep='true'>keep me</a> </div><iframe></iframe>",
+        ]),
+      close: mockClose,
+    });
+
+    vi.doMock("node:fs/promises", () => ({
+      open: mockOpenSpy,
+    }));
+
+    const { janusServerStream } = await import("../../lib/server/stream");
+    const result = await janusServerStream({
+      filePath: "test/path.html",
+      config: {
+        tagsToPreserve: ["a"],
+        preserveTagsWithAttrs: ["data-keep='true'"],
+      },
+    });
+
+    expect(result).toBe(
+      "Strip Me also strip me <a data-keep='true'>keep me</a>",
+    );
+    expect(mockOpenSpy).toHaveBeenCalledWith("test/path.html", "r");
+  });
+
+  it("preserves nested tag when one of its attributes matches local stream", async () => {
+    mockOpenSpy.mockResolvedValue({
+      createReadStream: () =>
+        Readable.from([
+          "The price of emissions allowances (EUA) </p>vehicles <a href='/' data-foo='hello'> link</a></p>",
+        ]),
+      close: mockClose,
+    });
+
+    vi.doMock("node:fs/promises", () => ({
+      open: mockOpenSpy,
+    }));
+
+    const { janusServerStream } = await import("../../lib/server/stream");
+    const result = await janusServerStream({
+      filePath: "test/path.html",
+      config: {
+        tagsToPreserve: ["a"],
+        preserveTagsWithAttrs: ["data-foo='hello'"],
+      },
+    });
+
+    expect(result).toBe(
+      "The price of emissions allowances (EUA) vehicles <a href='/' data-foo='hello'> link</a>",
+    );
+    expect(mockOpenSpy).toHaveBeenCalledWith("test/path.html", "r");
+  });
+
   it("should correctly handle custom configurations like tagsToPreserve", async () => {
     mockOpenSpy.mockResolvedValue({
       createReadStream: () =>
@@ -209,6 +265,58 @@ describe("janusStreamServer() remote stream", () => {
     });
 
     expect(result).toBe("Safe Content");
+    expect(fetchSpy).toHaveBeenCalledWith("https://test-example.com", {});
+  });
+
+  it("preserves a single tag with matching attributes when multiple instances of the same tag is present remote stream", async () => {
+    const mockStream = createMockFetchStream(
+      "<div>Strip Me <a>also strip me</a> <a data-keep='true'>keep me</a> </div><iframe></iframe>",
+    );
+    fetchSpy.mockResolvedValue({
+      ok: true,
+      status: 200,
+      headers: new Headers({ "Content-Type": "text/html; charset=utf8" }),
+      body: mockStream,
+    } as Response);
+
+    const { janusServerStream } = await import("../../lib/server/stream");
+    const result = await janusServerStream({
+      url: "https://test-example.com",
+      config: {
+        tagsToPreserve: ["a"],
+        preserveTagsWithAttrs: ["data-keep='true'"],
+      },
+    });
+
+    expect(result).toBe(
+      "Strip Me also strip me <a data-keep='true'>keep me</a>",
+    );
+    expect(fetchSpy).toHaveBeenCalledWith("https://test-example.com", {});
+  });
+
+  it("preserves nested tag when one of its attributes matches remote stream", async () => {
+    const mockStream = createMockFetchStream(
+      `The price of emissions allowances (EUA) </p>vehicles <a href='/' data-foo='hello'> link</a></p>`,
+    );
+    fetchSpy.mockResolvedValue({
+      ok: true,
+      status: 200,
+      headers: new Headers({ "Content-Type": "text/html; charset=utf8" }),
+      body: mockStream,
+    } as Response);
+
+    const { janusServerStream } = await import("../../lib/server/stream");
+    const result = await janusServerStream({
+      url: "https://test-example.com",
+      config: {
+        preserveTagsWithAttrs: ["data-foo='hello'"],
+        tagsToPreserve: ["a"],
+      },
+    });
+
+    expect(result).toBe(
+      "The price of emissions allowances (EUA) vehicles <a href='/' data-foo='hello'> link</a>",
+    );
     expect(fetchSpy).toHaveBeenCalledWith("https://test-example.com", {});
   });
 

@@ -14,10 +14,15 @@ const defaultConfig = {
 export function janusClient(text: string, config: Config = defaultConfig) {
   validateText(text);
   const parser = new DOMParser();
-  const { removedTags, preservedTags } = getTags(config);
+  const { removedTags, preservedTags, preserveTagsWithAttrs } = getTags(config);
   const root = parser.parseFromString(text, "text/html").body;
 
   return normalizeWhitespace(
-    serialize({ node: root, removedTags, preservedTags }),
+    serialize({
+      node: root,
+      removedTags,
+      preservedTags,
+      preserveTagsWithAttrs,
+    }),
   );
 }

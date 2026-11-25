@@ -63,4 +63,29 @@ describe("janusClient()", () => {
       `<div><script>(function() {console.log('foo bar')})()</script><p>The price of emissions allowances (EUA)</p><a href="/"> link</a></div>`,
     );
   });
+
+  it("preserves a single tag with matching attributes when multiple instances of the same tag is present", () => {
+    expect(
+      janusClient(
+        `<div>The price of emissions <a>vehicle</a> allowances (EUA)</p><a data-foo='hello'> link</a></p></div>`,
+        { preserveTagsWithAttrs: ["data-foo='hello'"], tagsToPreserve: ["a"] },
+      ),
+    ).toBe(
+      `The price of emissions vehicle allowances (EUA)<a data-foo="hello"> link</a>`,
+    );
+  });
+
+  it("preserves nested tag when one of its attributes matches", () => {
+    expect(
+      janusClient(
+        `The price of emissions allowances (EUA) </p>vehicles <a href='/' data-foo='hello'> link</a></p>`,
+        {
+          preserveTagsWithAttrs: ["data-foo='hello'"],
+          tagsToPreserve: ["a"],
+        },
+      ),
+    ).toBe(
+      `The price of emissions allowances (EUA) vehicles <a href="/" data-foo="hello"> link</a>`,
+    );
+  });
 });
