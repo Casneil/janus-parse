@@ -14,7 +14,7 @@ Here is exactly what it handles:
 
 1. **Completely removes blocked tags**: If a tag is blacklisted (like `script` or `style`), it doesn't just empty the content, it deletes the entire element so no empty HTML tags are left behind in your final string.
 2. **Keeps specific HTML intact**: You can pass tags into `tagsToPreserve` (like `<code>` or `<iframe>`). It will keep their full HTML layout exactly as it is while stripping out generic structural tags like `<div>` or `<span>`.
-3. **Preserves tags selectively by attribute**: Use `preserveTagsWithAttrs` with `tagsToPreserve` to retain only matching tags; non-matching tags are unwrapped while their contents remain.
+3. **Preserves tags selectively by attribute**: Use `preserveTagsWithAttrs` with `tagsToPreserve` to retain only matching tags.
 4. **Cleans up messy whitespace**: It automatically strips out layout code indentations, tabs, and random line breaks, squashing them down into uniform, single spaces.
 
 > **Note on implementation**: While the underlying `node-html-parser` library is excellent at reading and building HTML trees, it doesn't handle this type of conditional tag removal, selective HTML preservation, or text formatting out of the box. `janus-parse` bridges that gap by adding this specific data-cleaning layer on top of the parser.
